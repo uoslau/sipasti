@@ -13,7 +13,7 @@ Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 Route::resource('/tabel-kegiatan', KegiatanController::class)->except('show')->middleware('auth');
 Route::get('/tabel-kegiatan/{kegiatan:slug}', [KegiatanController::class, 'show'])->middleware('auth');
 
-Route::resource('/petugas-kegiatan', PetugasKegiatanController::class)->middleware('auth');
+Route::post('/petugas-import', [PetugasKegiatanController::class, 'import'])->name('petugas-import')->middleware('auth');
 
 // Route::get('/tabel-penugasan', [PenugasanController::class, 'index'])->middleware('auth');
 // Route::get('/tabel-penugasan/{penugasan:slug}', [PenugasanController::class, 'show'])->middleware('auth');

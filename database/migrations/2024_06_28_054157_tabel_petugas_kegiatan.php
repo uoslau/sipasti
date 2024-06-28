@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('pekerjaan');
             $table->string('nomor_bast');
             $table->integer('generate_number')->nullable();
-            $table->timestamps();
         });
     }
 

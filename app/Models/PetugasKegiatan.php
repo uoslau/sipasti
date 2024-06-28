@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PetugasKegiatan extends Model
 {
+    public $timestamps = false;
+
     use HasFactory;
 
     protected $guarded = ['id'];
