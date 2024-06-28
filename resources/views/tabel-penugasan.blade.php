@@ -1,3 +1,4 @@
+{{-- @dd($penugasans) --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
@@ -21,10 +22,10 @@
                                             Bertugas Sebagai</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Status</th>
+                                            Beban</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Tanggal Mulai</th>
+                                            Honor</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
@@ -55,11 +56,12 @@
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">Online</span>
-                                            </td>
-                                            <td class="align-middle text-center">
                                                 <span
-                                                    class="text-secondary text-xs font-weight-bold">{{ $p->tanggal_mulai }}</span>
+                                                    class="badge badge-sm bg-gradient-success">{{ $p->beban }}</span>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success">Rp.
+                                                    {{ number_format($p->honor, 0, '.', '.') }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"

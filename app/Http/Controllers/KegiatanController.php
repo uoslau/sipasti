@@ -15,9 +15,9 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan = Kegiatan::with(['penugasan', 'mataAnggaran', 'fungsi'])
+        $kegiatan = Kegiatan::with(['petugasKegiatan', 'mataAnggaran', 'fungsi'])
             ->select('id', 'nama_kegiatan', 'slug', 'tanggal_mulai', 'tanggal_selesai', 'mata_anggaran_id', 'fungsi_id')
-            ->withSum('penugasan', 'honor')
+            ->withSum('petugasKegiatan', 'honor')
             ->orderBy('id', 'desc')
             ->paginate(6);
 
@@ -54,7 +54,6 @@ class KegiatanController extends Controller
             'honor_nias_barat'  => 'nullable|integer',
         ]);
 
-        $fungsi = $validatedData['fungsi'] = auth()->user()->role;
         $slug = Str::slug($request->nama_kegiatan);
         $count = Kegiatan::where('slug', 'LIKE', "{$slug}%")->count();
         if ($count > 0) {
@@ -85,6 +84,7 @@ class KegiatanController extends Controller
         return view('kegiatan.show', [
             'title'         => 'Tabel Kegiatan',
             'kegiatan'      => $kegiatan->nama_kegiatan,
+            'kegiatan_id'   => $kegiatan->id,
             'petugas'       => $petugasKegiatan
         ]);
     }

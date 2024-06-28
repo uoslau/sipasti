@@ -15,6 +15,6 @@ class PetugasKegiatan extends Model
 
     public function kegiatan()
     {
-        return $this->hasMany(Kegiatan::class);
+        return $this->belongsTo(Kegiatan::class);
     }
 }

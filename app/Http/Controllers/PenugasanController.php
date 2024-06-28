@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penugasan;
+use App\Models\PetugasKegiatan;
 use Illuminate\Http\Request;
 
 class PenugasanController extends Controller
 {
     public function index()
     {
-        $penugasans = Penugasan::with(['kegiatan'])
+        $penugasans = PetugasKegiatan::with(['kegiatan'])
             ->orderBy('kegiatan_id', 'desc')
             ->orderBy('nama_mitra', 'asc')
             ->paginate(7);

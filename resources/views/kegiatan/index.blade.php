@@ -78,7 +78,7 @@
                                                     <div class="d-flex px-2">
                                                         <div class="my-auto">
                                                             <h6 class="mb-0 text-sm">Rp.
-                                                                {{ number_format($k->penugasan_sum_honor, 0, '.', '.') }}
+                                                                {{ number_format($k->petugas_kegiatan_sum_honor, 0, '.', '.') }}
                                                             </h6>
                                                         </div>
                                                     </div>

@@ -1,3 +1,4 @@
+{{-- @dd($kegiatan_id) --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
@@ -16,6 +17,7 @@
                                     <form action="/petugas-import" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-md-6">
+                                            <input type="hidden" name="kegiatan_id" value="{{ $kegiatan_id }}">
                                             <div
                                                 class="input-group mb-3 card-header justify-content-between align-items-center">
                                                 <input type="file" class="form-control" id="file"
@@ -35,10 +37,10 @@
                                                 Bertugas Sebagai</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Status</th>
+                                                Beban</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Tanggal Mulai</th>
+                                                Honor</th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
@@ -66,11 +68,12 @@
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $p->tanggal_mulai }}</span>
+                                                        class="badge badge-sm bg-gradient-success">{{ $p->beban }}</span>
+                                                </td>
+                                                <td class="align-middle text-center text-sm">
+                                                    <span class="badge badge-sm bg-gradient-success">Rp.
+                                                        {{ number_format($p->honor, 0, '.', '.') }}</span>
                                                 </td>
                                                 <td class="align-middle">
                                                     <a href="javascript:;"

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('sktnp');
             $table->string('nama_mitra');
-            $table->string('slug');
             $table->foreignId('kegiatan_id');
             $table->string('bertugas_sebagai');
             $table->string('wilayah_tugas');
