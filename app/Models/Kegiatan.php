@@ -26,18 +26,19 @@ class Kegiatan extends Model
         return $this->hasMany(PetugasKegiatan::class);
     }
 
-    public function penugasan()
-    {
-        return $this->hasMany(Penugasan::class);
-    }
-
-    public function mitra()
-    {
-        return $this->belongsTo(Mitra::class);
-    }
-
     public function getRouteKeyName()
     {
         return 'slug';
     }
+
+    // public function penugasan()
+    // {
+    //     return $this->hasMany(Penugasan::class);
+    // }
+
+    // public function mitra()
+    // {
+    //     return $this->belongsTo(Mitra::class);
+    // }
+
 }

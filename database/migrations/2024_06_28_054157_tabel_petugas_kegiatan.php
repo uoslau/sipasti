@@ -22,8 +22,8 @@ return new class extends Migration
             $table->integer('honor');
             $table->string('alamat');
             $table->string('pekerjaan');
+            $table->string('nomor_kontrak');
             $table->string('nomor_bast');
-            $table->integer('generate_number')->nullable();
         });
     }
 
