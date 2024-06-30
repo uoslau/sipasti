@@ -39,7 +39,7 @@
                                 @else
                                     <thead>
                                         <tr>
-                                            <th
+                                            <th style="width: 500px;"
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Kegiatan</th>
                                             <th
@@ -51,9 +51,6 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Tanggal Selesai</th>
-                                            {{-- <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Mata Anggaran</th> --}}
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Fungsi</th>
@@ -64,8 +61,11 @@
                                         @foreach ($kegiatan as $k)
                                             <tr>
                                                 {{-- NAMA KEGIATAN --}}
-                                                <td>
-                                                    <div class="d-flex px-2">
+                                                <td
+                                                    style="max-width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                    <div
+                                                        class="d-flex
+                                                    px-2">
                                                         <div class="my-auto">
                                                             <a href="/tabel-kegiatan/{{ $k->slug }}">
                                                                 <h6 class="mb-0 text-sm">{{ $k->nama_kegiatan }}</h6>
@@ -103,7 +103,7 @@
                                             </td> --}}
                                                 {{-- FUNGSI --}}
                                                 <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                    <span class="text-xs font-weight-bold">
                                                         {{ $k->fungsi->fungsi ?? 'NA' }}
                                                     </span>
                                                 </td>

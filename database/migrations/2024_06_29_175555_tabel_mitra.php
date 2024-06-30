@@ -21,10 +21,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('npwp');
             $table->boolean('jenis_kelamin');
-            $table->string('username');
-            $table->string('sobat_id');
             $table->string('pekerjaan');
-            $table->timestamps();
         });
     }
 

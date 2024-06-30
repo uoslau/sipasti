@@ -18,14 +18,14 @@ class PetugasKegiatanController extends Controller
     }
     public function index()
     {
-        $penugasans = PetugasKegiatan::with(['kegiatan'])
+        $penugasan = PetugasKegiatan::with(['kegiatan'])
             ->orderBy('kegiatan_id', 'desc')
             ->orderBy('nama_mitra', 'asc')
             ->paginate(7);
 
         return view('tabel-penugasan', [
             'title'         => 'Tabel Penugasan',
-            'penugasans'    => $penugasans
+            'penugasan'     => $penugasan
         ]);
     }
 

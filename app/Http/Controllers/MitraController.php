@@ -9,9 +9,11 @@ class MitraController extends Controller
 {
     public function index()
     {
+        $mitra = Mitra::orderBy('nama_mitra', 'asc')->paginate(8);
+
         return view('mitra', [
-            'title' => 'Mitra BPS Kabupaten Nias',
-            'mitra' => Mitra::orderBy('nama_mitra', 'asc')->paginate(10)
+            'title'     => 'Tabel Mitra',
+            'mitra'     => $mitra
         ]);
     }
 }

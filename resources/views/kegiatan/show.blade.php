@@ -29,7 +29,7 @@
                                 @else
                                     <thead>
                                         <tr>
-                                            <th
+                                            <th style="width: 500px;"
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama</th>
                                             <th
@@ -67,12 +67,11 @@
                                                         @endif
                                                     </p>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span
-                                                        class="badge badge-sm bg-gradient-success">{{ $p->beban }}</span>
+                                                <td class="align-middle text-center text-md">
+                                                    <span class="badge badge-sm bg-primary">{{ $p->beban }}</span>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Rp.
+                                                <td class="align-middle text-center text-md">
+                                                    <span class="badge badge-sm bg-success">Rp.
                                                         {{ number_format($p->honor, 0, '.', '.') }}</span>
                                                 </td>
                                                 <td class="align-middle">

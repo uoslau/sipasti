@@ -15,22 +15,23 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        <th style="width: 500px;"
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nama</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Bertugas Sebagai</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Beban</th>
+                                            Nomor Kontrak</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Honor</th>
+                                            Nomor BAST</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($penugasans as $p)
+                                    @foreach ($penugasan as $p)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -55,13 +56,11 @@
                                                     @endif
                                                 </p>
                                             </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span
-                                                    class="badge badge-sm bg-gradient-success">{{ $p->beban }}</span>
+                                            <td class="align-middle text-center text-md">
+                                                <span class="badge badge-sm bg-primary">{{ $p->nomor_kontrak }}</span>
                                             </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">Rp.
-                                                    {{ number_format($p->honor, 0, '.', '.') }}</span>
+                                            <td class="align-middle text-center text-md">
+                                                <span class="badge badge-sm bg-success">{{ $p->nomor_bast }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
@@ -72,7 +71,7 @@
                                 </tbody>
                             </table>
                             <div class="pagination justify-content-end">
-                                {{ $penugasans->onEachSide(0)->links() }}
+                                {{ $penugasan->onEachSide(0)->links() }}
                             </div>
                         </div>
                     </div>
