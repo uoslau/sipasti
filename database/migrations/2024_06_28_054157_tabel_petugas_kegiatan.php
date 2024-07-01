@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('wilayah_tugas');
             $table->string('beban');
             $table->integer('honor');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->string('alamat');
             $table->string('pekerjaan');
             $table->string('nomor_kontrak');

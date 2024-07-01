@@ -1,4 +1,4 @@
-{{-- @dd($kegiatan_id) --}}
+{{-- @dd($petugas) --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
@@ -37,10 +37,13 @@
                                                 Bertugas Sebagai</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Beban</th>
+                                                Honor</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Honor</th>
+                                                Tanggal Selesai</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Nomor BAST</th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
@@ -58,6 +61,7 @@
                                                 </td>
                                                 <td>
                                                     <p class="text-xs font-weight-bold mb-0">{{ $p->bertugas_sebagai }}
+                                                        / {{ $p->beban }}
                                                     </p>
                                                     <p class="text-xs text-secondary mb-0">
                                                         @if ($p->wilayah_tugas == '1201')
@@ -68,11 +72,15 @@
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center text-md">
-                                                    <span class="badge badge-sm bg-primary">{{ $p->beban }}</span>
-                                                </td>
-                                                <td class="align-middle text-center text-md">
                                                     <span class="badge badge-sm bg-success">Rp.
                                                         {{ number_format($p->honor, 0, '.', '.') }}</span>
+                                                </td>
+                                                <td class="align-middle text-center text-md">
+                                                    <span
+                                                        class="badge badge-sm bg-warning">{{ $p->tanggal_selesai }}</span>
+                                                </td>
+                                                <td class="align-middle text-center text-md">
+                                                    <span class="badge badge-sm bg-danger">{{ $p->nomor_bast }}</span>
                                                 </td>
                                                 <td class="align-middle">
                                                     <a href="javascript:;"

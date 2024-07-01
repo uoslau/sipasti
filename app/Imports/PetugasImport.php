@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Mitra;
 use App\Models\Kegiatan;
 use App\Models\NomorKontrak;
 use App\Models\PetugasKegiatan;
@@ -34,6 +35,8 @@ class PetugasImport implements ToCollection
         $kegiatan = Kegiatan::find($this->kegiatan_id);
         $honor_nias = $kegiatan->honor_nias ?? 0;
         $honor_nias_barat = $kegiatan->honor_nias_barat ?? 0;
+        $tanggal_mulai = $kegiatan->tanggal_mulai;
+        $tanggal_selesai = $kegiatan->tanggal_selesai;
 
         $indexKe = 1;
         foreach ($collection as $row) {
@@ -57,6 +60,12 @@ class PetugasImport implements ToCollection
                     $honor = $honor_nias_barat;
                 }
 
+                $sktnp = !empty($row[1]) ? $row[1] : '';
+                $mitra = Mitra::where('sktnp', $sktnp)->first();
+
+                $alamat = $mitra ? $mitra->alamat : '';
+                $pekerjaan = $mitra ? $mitra->pekerjaan : '';
+
                 $data = [
                     'sktnp'             => !empty($row[1]) ? $row[1] : '',
                     'nama_mitra'        => !empty($row[2]) ? $row[2] : '',
@@ -65,11 +74,12 @@ class PetugasImport implements ToCollection
                     'wilayah_tugas'     => $wilayah_tugas,
                     'beban'             => !empty($row[5]) ? $row[5] : '',
                     'honor'             => $honor,
-                    'alamat'            => !empty($row[6]) ? $row[6] : '',
-                    'pekerjaan'         => !empty($row[7]) ? $row[7] : '',
+                    'tanggal_mulai'     => $tanggal_mulai,
+                    'tanggal_selesai'   => $tanggal_selesai,
+                    'alamat'            => $alamat,
+                    'pekerjaan'         => $pekerjaan,
                     'nomor_kontrak'     => $nomorKontrak,
                     'nomor_bast'        => $nomorBAST,
-                    // 'generate_number'   => !empty($row[10]) ? $row[10] : '',
                 ];
 
                 PetugasKegiatan::create($data);
