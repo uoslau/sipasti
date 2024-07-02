@@ -1,4 +1,4 @@
-@dd($groupedKegiatan)
+{{-- @dd($groupedKegiatan) --}}
 
 <x-layout>
 

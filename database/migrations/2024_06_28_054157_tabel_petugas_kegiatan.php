@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('kegiatan_id');
             $table->string('bertugas_sebagai');
             $table->string('wilayah_tugas');
-            $table->string('beban');
+            $table->integer('beban');
+            $table->string('satuan');
             $table->integer('honor');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');

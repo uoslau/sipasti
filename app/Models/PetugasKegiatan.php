@@ -22,4 +22,9 @@ class PetugasKegiatan extends Model
     {
         return $this->belongsTo(Fungsi::class);
     }
+
+    public function kontrak()
+    {
+        return $this->hasMany(Kontrak::class);
+    }
 }

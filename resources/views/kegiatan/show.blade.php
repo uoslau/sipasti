@@ -61,7 +61,7 @@
                                                 </td>
                                                 <td>
                                                     <p class="text-xs font-weight-bold mb-0">{{ $p->bertugas_sebagai }}
-                                                        / {{ $p->beban }}
+                                                        / {{ $p->beban }} {{ $p->satuan }}
                                                     </p>
                                                     <p class="text-xs text-secondary mb-0">
                                                         @if ($p->wilayah_tugas == '1201')

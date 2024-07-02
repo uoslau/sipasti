@@ -18,9 +18,9 @@ class KontrakController extends Controller
             ->get();
 
         $groupedKegiatan = $kegiatan->groupBy(function ($item) {
-            $date = Carbon::parse($item->tanggal_mulai);
-            $month = $date->format('F');
-            $year = $date->format('Y');
+            $date   = Carbon::parse($item->tanggal_mulai);
+            $month  = $date->format('F');
+            $year   = $date->format('Y');
             return "$month $year";
         });
 
@@ -35,18 +35,49 @@ class KontrakController extends Controller
         });
 
         return view('kontrak.index', [
-            'title' => 'Kontrak',
-            'groupedKegiatan' => $groupedKegiatanWithSlug
+            'title'             => 'Kontrak',
+            'groupedKegiatan'   => $groupedKegiatanWithSlug
         ]);
     }
 
     public function show($slug)
     {
-        $kegiatan = PetugasKegiatan::all();
+        $formattedSlug = str_replace('-', ' ', $slug);
+        $date   = Carbon::createFromFormat('F Y', $formattedSlug);
+        $month  = $date->format('m');
+        $year   = $date->format('Y');
+
+        $kegiatanBulan = Kegiatan::with('petugasKegiatan')
+            ->whereYear('tanggal_mulai', $year)
+            ->whereMonth('tanggal_mulai', $month)
+            ->get();
+
+        $petugasBulan = PetugasKegiatan::whereHas('kegiatan', function ($query) use ($year, $month) {
+            $query->whereYear('tanggal_mulai', $year)
+                ->whereMonth('tanggal_mulai', $month);
+        })->get();
+
+        $petugasData = $petugasBulan->groupBy('sktnp')->map(function ($items, $sktnp) {
+            $totalHonor = $items->sum('honor');
+            $jumlahKegiatan = $items->count();
+            return [
+                'sktnp' => $sktnp,
+                'nama_mitra' => $items->first()->nama_mitra,
+                'total_honor' => $totalHonor,
+                'jumlah_kegiatan' => $jumlahKegiatan,
+            ];
+        });
+
+        $petugasUnik = PetugasKegiatan::whereHas('kegiatan', function ($query) use ($year, $month) {
+            $query->whereYear('tanggal_mulai', $year)
+                ->whereMonth('tanggal_mulai', $month);
+        })->distinct('sktnp')->get('sktnp');
 
         return view('kontrak.show', [
-            'title' => 'Kontrak - ' . str_replace('-', ' ', $slug),
-            'kegiatan' => $kegiatan
+            'title'         => 'Kontrak - ' . $date->format('F Y'),
+            'kegiatanBulan' => $kegiatanBulan,
+            'petugasBulan'  => $petugasData,
+            'petugasUnik'   => $petugasUnik
         ]);
     }
 }

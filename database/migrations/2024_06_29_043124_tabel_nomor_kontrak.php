@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('nomor_kontrak', function (Blueprint $table) {
             $table->id();
-            $table->year('year');
-            $table->integer('last_contract_number')->default(0);
+            $table->string('sktnp');
+            $table->integer('year');
+            $table->integer('month');
             $table->integer('last_bast_number')->default(0);
+            $table->integer('last_contract_number')->default(0);
+            $table->integer('last_global_contract_number')->default(0);
+            $table->timestamps();
+
+            $table->unique(['sktnp', 'year', 'month']); // ensure unique combination of sktnp, year, and month
         });
     }
 

@@ -30,7 +30,7 @@
                                         {{-- <thead>
                                         <tr>
                                             <th> --}}
-                                        <a class="btn btn-icon btn-3 btn-primary" type="button"
+                                        <a class="btn btn-icon btn-3 btn-primary ms-3" type="button"
                                             href="/tabel-kegiatan/create">
                                             <span class="btn-inner--text">Tambah Kegiatan</span>
                                         </a>
