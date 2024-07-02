@@ -7,6 +7,7 @@ use App\Models\Kegiatan;
 use Illuminate\Support\Str;
 use App\Models\MataAnggaran;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class KegiatanController extends Controller
 {
@@ -22,7 +23,7 @@ class KegiatanController extends Controller
             ->paginate(6);
 
         return view('kegiatan.index', [
-            'title'     => 'Tabel Kegiatan',
+            'title'     => 'Kegiatan',
             'kegiatan'  => $kegiatan
         ]);
     }
@@ -82,7 +83,7 @@ class KegiatanController extends Controller
         $petugasKegiatan = $kegiatan->petugasKegiatan()->orderBy('nama_mitra', 'asc')->paginate(8);
 
         return view('kegiatan.show', [
-            'title'         => 'Tabel Kegiatan',
+            'title'         => 'Kegiatan',
             'kegiatan'      => $kegiatan->nama_kegiatan,
             'kegiatan_id'   => $kegiatan->id,
             'petugas'       => $petugasKegiatan

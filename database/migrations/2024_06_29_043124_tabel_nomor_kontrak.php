@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('nomor_kontrak', function (Blueprint $table) {
             $table->id();
             $table->year('year');
-            $table->integer('last_number')->default(0);
+            $table->integer('last_contract_number')->default(0);
+            $table->integer('last_bast_number')->default(0);
         });
     }
 

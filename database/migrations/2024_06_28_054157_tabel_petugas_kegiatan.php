@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('tanggal_selesai');
             $table->string('alamat');
             $table->string('pekerjaan');
-            $table->string('nomor_kontrak');
+            $table->string('nomor_kontrak')->nullable();
             $table->string('nomor_bast');
         });
     }

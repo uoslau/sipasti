@@ -26,7 +26,7 @@
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Tabel Kegiatan</span>
+                    <span class="nav-link-text ms-1">Kegiatan</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -35,7 +35,16 @@
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Tabel Penugasan</span>
+                    <span class="nav-link-text ms-1">Penugasan</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('kontrak*') ? 'active' : '' }}" href="/kontrak">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-single-copy-04 text-success text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Kontrak</span>
                 </a>
             </li>
             <li class="nav-item">

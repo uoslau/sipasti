@@ -27,30 +27,31 @@ class PetugasImport implements ToCollection
         // UNTUK NOMOR KONTRAK
         $currentYear = date('Y');
         $contractNumber = NomorKontrak::firstOrCreate(
-            ['year'          => $currentYear],
-            ['last_number'   => 0]
+            ['year'                         => $currentYear],
+            [
+                'last_bast_number'          => 0,
+                'last_contract_number'      => 0
+            ]
         );
 
         // UNTUK HONOR
         $kegiatan = Kegiatan::find($this->kegiatan_id);
         $honor_nias = $kegiatan->honor_nias ?? 0;
         $honor_nias_barat = $kegiatan->honor_nias_barat ?? 0;
-        $tanggal_mulai = $kegiatan->tanggal_mulai;
-        $tanggal_selesai = $kegiatan->tanggal_selesai;
+        $tanggal_mulai_mitra = $kegiatan->tanggal_mulai;
+        $tanggal_selesai_mitra = $kegiatan->tanggal_selesai;
 
         $indexKe = 1;
         foreach ($collection as $row) {
             if ($indexKe > 1) {
 
-                $contractNumber->last_number += 1;
+                $contractNumber->last_bast_number += 1;
                 $contractNumber->save();
 
-                if ($contractNumber->last_number < 1000) {
-                    $nomorKontrak = str_pad($contractNumber->last_number, 3, '0', STR_PAD_LEFT) . "/1201_MITRA/" . $currentYear;
-                    $nomorBAST = str_pad($contractNumber->last_number, 3, '0', STR_PAD_LEFT) . "/1201_BAST/" . $currentYear;
+                if ($contractNumber->last_bast_number < 1000) {
+                    $nomorBAST = str_pad($contractNumber->last_bast_number, 3, '0', STR_PAD_LEFT) . "/1201_BAST/" . $currentYear;
                 } else {
-                    $nomorKontrak = str_pad($contractNumber->last_number, 4, '0', STR_PAD_LEFT) . "/1201_MITRA/" . $currentYear;
-                    $nomorBAST = str_pad($contractNumber->last_number, 4, '0', STR_PAD_LEFT) . "/1201_BAST/" . $currentYear;
+                    $nomorBAST = str_pad($contractNumber->last_bast_number, 4, '0', STR_PAD_LEFT) . "/1201_BAST/" . $currentYear;
                 }
 
                 $wilayah_tugas = !empty($row[4]) ? $row[4] : '';
@@ -74,11 +75,12 @@ class PetugasImport implements ToCollection
                     'wilayah_tugas'     => $wilayah_tugas,
                     'beban'             => !empty($row[5]) ? $row[5] : '',
                     'honor'             => $honor,
-                    'tanggal_mulai'     => $tanggal_mulai,
-                    'tanggal_selesai'   => $tanggal_selesai,
+                    'tanggal_mulai'     => $tanggal_mulai_mitra,
+                    'tanggal_selesai'   => $tanggal_selesai_mitra,
                     'alamat'            => $alamat,
                     'pekerjaan'         => $pekerjaan,
-                    'nomor_kontrak'     => $nomorKontrak,
+                    // 'nomor_kontrak'     => $nomorKontrak,
+                    'nomor_kontrak'     => '',
                     'nomor_bast'        => $nomorBAST,
                 ];
 

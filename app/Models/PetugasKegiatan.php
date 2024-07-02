@@ -17,4 +17,9 @@ class PetugasKegiatan extends Model
     {
         return $this->belongsTo(Kegiatan::class);
     }
+
+    public function fungsi()
+    {
+        return $this->belongsTo(Fungsi::class);
+    }
 }

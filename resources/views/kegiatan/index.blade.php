@@ -14,7 +14,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                        <h6>Tabel Kegiatan</h6>
+                        <h6>Tabel {{ $title }}</h6>
                         @if ($kegiatan->isEmpty())
                         @else
                             <a class="btn btn-icon btn-3 btn-primary" type="button" href="/tabel-kegiatan/create">
@@ -26,16 +26,18 @@
                         <div class="table-responsive p-0">
                             <table class="table align-items-center justify-content-center mb-0">
                                 @if ($kegiatan->isEmpty())
-                                    <thead>
+                                    <div class="col-md-6">
+                                        {{-- <thead>
                                         <tr>
-                                            <th>
-                                                <a class="btn btn-icon btn-3 btn-primary" type="button"
-                                                    href="/tabel-kegiatan/create">
-                                                    <span class="btn-inner--text">Tambah Kegiatan</span>
-                                                </a>
-                                            </th>
+                                            <th> --}}
+                                        <a class="btn btn-icon btn-3 btn-primary" type="button"
+                                            href="/tabel-kegiatan/create">
+                                            <span class="btn-inner--text">Tambah Kegiatan</span>
+                                        </a>
+                                        {{-- </th>
                                         </tr>
-                                    </thead>
+                                    </thead> --}}
+                                    </div>
                                 @else
                                     <thead>
                                         <tr>
@@ -109,10 +111,10 @@
                                                 </td>
                                                 {{-- TITIK 3 --}}
                                                 <td class="align-middle">
-                                                    <button class="btn btn-link text-secondary mb-0"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-v text-xs"></i>
-                                                    </button>
+                                                    <a href="javascript:;"
+                                                        class="text-secondary font-weight-bold text-xs"
+                                                        data-toggle="tooltip" data-original-title="Edit user"> Print
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

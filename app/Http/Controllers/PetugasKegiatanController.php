@@ -23,8 +23,8 @@ class PetugasKegiatanController extends Controller
             ->orderBy('nama_mitra', 'asc')
             ->paginate(7);
 
-        return view('tabel-penugasan', [
-            'title'         => 'Tabel Penugasan',
+        return view('penugasan.index', [
+            'title'         => 'Penugasan',
             'penugasan'     => $penugasan
         ]);
     }

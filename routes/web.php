@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MitraController;
-use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MitraController;
+use App\Http\Controllers\KontrakController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\PetugasKegiatanController;
 
@@ -19,6 +20,9 @@ Route::get('/tabel-kegiatan/{kegiatan:slug}', [KegiatanController::class, 'show'
 
 Route::get('/tabel-penugasan', [PetugasKegiatanController::class, 'index'])->middleware('auth');
 Route::post('/petugas-import', [PetugasKegiatanController::class, 'import'])->name('petugas-import')->middleware('auth');
+
+Route::get('/kontrak', [KontrakController::class, 'index'])->middleware('auth');
+Route::get('/kontrak/{slug}', [KontrakController::class, 'show'])->middleware('auth');
 
 // Route::get('/tabel-penugasan/{penugasan:slug}', [PenugasanController::class, 'show'])->middleware('auth');
 
