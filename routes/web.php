@@ -1,13 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BastController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MitraController;
-use App\Http\Controllers\SuratController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\PetugasKegiatanController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -29,4 +28,5 @@ Route::get('/kontrak/{slug}', [KontrakController::class, 'show'])->middleware('a
 
 Route::get('/mitra', [MitraController::class, 'index'])->middleware('auth');
 
-Route::get('/download/{id}', [SuratController::class, 'generateBAST']);
+Route::get('/download/{id}', [BastController::class, 'generateBAST']);
+// Route::get('/download-all/{kegiatan_id}', [BastController::class, 'generateAllBAST']);

@@ -111,7 +111,7 @@
                                                 </td>
                                                 {{-- TITIK 3 --}}
                                                 <td class="align-middle">
-                                                    <a href="javascript:;"
+                                                    <a href="/download-all/{{ $k->id }}"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Edit user"> Print
                                                     </a>

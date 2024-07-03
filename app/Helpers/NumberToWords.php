@@ -7,7 +7,7 @@ class NumberToWords
     public static function toWords($number)
     {
         $number = abs($number);
-        $words = array("", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
+        $words = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
         $temp = "";
 
         if ($number < 12) {
@@ -15,21 +15,21 @@ class NumberToWords
         } else if ($number < 20) {
             $temp = self::toWords($number - 10) . " belas";
         } else if ($number < 100) {
-            $temp = self::toWords($number / 10) . " puluh" . self::toWords($number % 10);
+            $temp = self::toWords($number / 10) . " puluh " . self::toWords($number % 10);
         } else if ($number < 200) {
             $temp = " seratus" . self::toWords($number - 100);
         } else if ($number < 1000) {
-            $temp = self::toWords($number / 100) . " ratus" . self::toWords($number % 100);
+            $temp = self::toWords($number / 100) . " ratus " . self::toWords($number % 100);
         } else if ($number < 2000) {
-            $temp = " seribu" . self::toWords($number - 1000);
+            $temp = " seribu " . self::toWords($number - 1000);
         } else if ($number < 1000000) {
-            $temp = self::toWords($number / 1000) . " ribu" . self::toWords($number % 1000);
+            $temp = self::toWords($number / 1000) . " ribu " . self::toWords($number % 1000);
         } else if ($number < 1000000000) {
-            $temp = self::toWords($number / 1000000) . " juta" . self::toWords($number % 1000000);
+            $temp = self::toWords($number / 1000000) . " juta " . self::toWords($number % 1000000);
         } else if ($number < 1000000000000) {
-            $temp = self::toWords($number / 1000000000) . " miliar" . self::toWords(fmod($number, 1000000000));
+            $temp = self::toWords($number / 1000000000) . " miliar " . self::toWords(fmod($number, 1000000000));
         } else if ($number < 1000000000000000) {
-            $temp = self::toWords($number / 1000000000000) . " triliun" . self::toWords(fmod($number, 1000000000000));
+            $temp = self::toWords($number / 1000000000000) . " triliun " . self::toWords(fmod($number, 1000000000000));
         }
 
         return trim($temp);

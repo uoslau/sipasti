@@ -8,7 +8,7 @@ use App\Helpers\NumberToWords;
 use App\Models\PetugasKegiatan;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class SuratController extends Controller
+class BastController extends Controller
 {
     public function generateBAST($id)
     {
@@ -28,6 +28,12 @@ class SuratController extends Controller
         $tahun = $currentDate->format('Y');
         $hari = NumberToWords::dayName($currentDate->format('l'));
 
+        $kegiatanDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
+        $tanggal_kegiatan = $kegiatanDate->format('d');
+        $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
+        $tahun_kegiatan = $kegiatanDate->format('Y');
+        // $hari_kegiatan = NumberToWords::dayName($kegiatanDate->format('l'));
+
         $tanggalTerbilang = NumberToWords::toWords($tanggal);
         $tahunTerbilang = NumberToWords::toWords($tahun);
 
@@ -39,6 +45,7 @@ class SuratController extends Controller
             'wilayah_tugas' => $petugas->wilayah_tugas,
             'beban' => $petugas->beban,
             'satuan' => $petugas->satuan,
+            'fungsi' => $petugas->kegiatan->fungsi->fungsi,
             'honor' => $petugas->honor,
             'tanggal_mulai' => $petugas->tanggal_mulai,
             'tanggal_selesai' => $petugas->tanggal_selesai,
@@ -47,11 +54,16 @@ class SuratController extends Controller
             'nomor_kontrak' => $petugas->nomor_kontrak,
             'nomor_bast' => $petugas->nomor_bast,
             'hari' => $hari,
-            'tanggal_terbilang' => $tanggalTerbilang,
+            'tanggal_terbilang' => ucfirst($tanggalTerbilang),
             'bulan' => $bulan,
-            'bulan_kapital' => strtoupper($bulan),
             'tahun' => date('Y'),
-            'tahun_terbilang' => $tahunTerbilang
+            'tahun_terbilang' => ucfirst($tahunTerbilang),
+            // 'hari_kegiatan' => $hari_kegiatan,
+            'tanggal_kegiatan' => $tanggal_kegiatan,
+            'bulan_kegiatan' => $bulan_kegiatan,
+            'bulan_kegiatan_kapital' => strtoupper($bulan_kegiatan),
+            'tahun_kegiatan' => $tahun_kegiatan
+
         ];
 
         foreach ($data as $key => $value) {
