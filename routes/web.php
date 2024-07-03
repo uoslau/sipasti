@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
@@ -27,3 +28,5 @@ Route::get('/kontrak/{slug}', [KontrakController::class, 'show'])->middleware('a
 // Route::get('/tabel-penugasan/{penugasan:slug}', [PenugasanController::class, 'show'])->middleware('auth');
 
 Route::get('/mitra', [MitraController::class, 'index'])->middleware('auth');
+
+Route::get('/download/{id}', [SuratController::class, 'generateBAST']);

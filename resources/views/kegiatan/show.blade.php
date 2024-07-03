@@ -83,7 +83,7 @@
                                                     <span class="badge badge-sm bg-danger">{{ $p->nomor_bast }}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="javascript:;"
+                                                    <a href="/download/{{ $p->id }}"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Edit user"> Print
                                                     </a>
