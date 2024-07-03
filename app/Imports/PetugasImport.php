@@ -20,6 +20,7 @@ class PetugasImport implements ToCollection
 
     public function collection(Collection $collection)
     {
+        dd($collection);
         $kegiatan = Kegiatan::find($this->kegiatan_id);
         $tanggal_mulai_mitra = $kegiatan->tanggal_mulai;
         $tanggal_selesai_mitra = $kegiatan->tanggal_selesai;
@@ -30,13 +31,11 @@ class PetugasImport implements ToCollection
         $currentYear = date('Y', strtotime($tanggal_mulai_mitra));
         $currentMonth = date('m', strtotime($tanggal_mulai_mitra));
 
-        // Fetch the global last contract number for the current year
         $global_contract_num = NomorKontrak::where('year', $currentYear)
             ->orderBy('last_global_contract_number', 'desc')
             ->first();
         $last_global_contract_num = $global_contract_num ? $global_contract_num->last_global_contract_number : 0;
 
-        // Fetch the global last BAST number for the current year
         $global_bast_num = NomorKontrak::where('year', $currentYear)
             ->orderBy('last_bast_number', 'desc')
             ->first();
@@ -51,18 +50,15 @@ class PetugasImport implements ToCollection
                 $alamat = $mitra ? $mitra->alamat : '';
                 $pekerjaan = $mitra ? $mitra->pekerjaan : '';
 
-                // Check if contract number already exists for this mitra and month
                 $existingContract = NomorKontrak::where('sktnp', $sktnp)
                     ->where('year', $currentYear)
                     ->where('month', $currentMonth)
                     ->first();
 
                 if (!$existingContract) {
-                    // Increment the global contract number
                     $last_global_contract_num++;
                     $contractNumberStr = str_pad($last_global_contract_num, 3, '0', STR_PAD_LEFT) . "/1201_MITRA/" . $currentYear;
 
-                    // Create a new contract record for the mitra
                     $mitraContractNumber = NomorKontrak::create([
                         'sktnp' => $sktnp,
                         'year' => $currentYear,
@@ -76,11 +72,9 @@ class PetugasImport implements ToCollection
                     $mitraContractNumber = $existingContract;
                 }
 
-                // Update global last_bast_number untuk BAST
                 $last_global_bast_num++;
                 $nomorBAST = str_pad($last_global_bast_num, 3, '0', STR_PAD_LEFT) . "/1201_BAST/" . $currentYear;
 
-                // Update mitraContractNumber dengan last_bast_number yang baru
                 $mitraContractNumber->last_bast_number = $last_global_bast_num;
                 $mitraContractNumber->save();
 
@@ -94,9 +88,9 @@ class PetugasImport implements ToCollection
                     'kegiatan_id'       => $this->kegiatan_id,
                     'bertugas_sebagai'  => !empty($row[3]) ? $row[3] : '',
                     'wilayah_tugas'     => $wilayah_tugas,
-                    'beban'             => $beban,
+                    'beban'             => (int)$beban,
                     'satuan'            => !empty($row[6]) ? $row[6] : '',
-                    'honor'             => $beban * $honor,
+                    'honor'             => (int)$beban * $honor,
                     'tanggal_mulai'     => $tanggal_mulai_mitra,
                     'tanggal_selesai'   => $tanggal_selesai_mitra,
                     'alamat'            => $alamat,
