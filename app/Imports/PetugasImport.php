@@ -20,7 +20,7 @@ class PetugasImport implements ToCollection
 
     public function collection(Collection $collection)
     {
-        dd($collection);
+        // dd($collection);
         $kegiatan = Kegiatan::find($this->kegiatan_id);
         $tanggal_mulai_mitra = $kegiatan->tanggal_mulai;
         $tanggal_selesai_mitra = $kegiatan->tanggal_selesai;
@@ -44,6 +44,10 @@ class PetugasImport implements ToCollection
         $indexKe = 1;
         foreach ($collection as $row) {
             if ($indexKe > 1) {
+                // if (empty($row[0])) {
+                //     break;
+                // }
+
                 $sktnp = !empty($row[1]) ? $row[1] : '';
                 $mitra = Mitra::where('sktnp', $sktnp)->first();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use ZipArchive;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Helpers\NumberToWords;
@@ -74,5 +75,85 @@ class BastController extends Controller
         $templateProcessor->saveAs($outputPath);
 
         return response()->download($outputPath)->deleteFileAfterSend(true);
+    }
+
+    public function generateAllBAST($kegiatanId)
+    {
+        $petugasList = PetugasKegiatan::where('kegiatan_id', $kegiatanId)->get();
+
+        if ($petugasList->isEmpty()) {
+            return response()->json(['error' => 'No petugas found for the given kegiatan.'], 404);
+        }
+
+        $templatePath = storage_path('app/public/template/template_bast.docx');
+
+        if (!file_exists($templatePath)) {
+            return response()->json(['error' => 'Template file not found.'], 404);
+        }
+
+        $zip = new ZipArchive();
+        $namaKegiatan = $petugasList->first()->kegiatan->nama_kegiatan;
+        $zipFileName = storage_path('app/public/bast/BAST_' . str_replace(' ', '_', $namaKegiatan) . '.zip');
+
+        if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
+            return response()->json(['error' => 'Could not create zip file.'], 500);
+        }
+
+        foreach ($petugasList as $petugas) {
+            $templateProcessor = new TemplateProcessor($templatePath);
+
+            $currentDate = Carbon::now();
+            $tanggal = $currentDate->format('d');
+            $bulan = NumberToWords::monthName($currentDate->format('m'));
+            $tahun = $currentDate->format('Y');
+            $hari = NumberToWords::dayName($currentDate->format('l'));
+
+            $kegiatanDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
+            $tanggal_kegiatan = $kegiatanDate->format('d');
+            $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
+            $tahun_kegiatan = $kegiatanDate->format('Y');
+
+            $tanggalTerbilang = NumberToWords::toWords($tanggal);
+            $tahunTerbilang = NumberToWords::toWords($tahun);
+
+            $data = [
+                'sktnp' => $petugas->sktnp,
+                'nama_mitra' => ucwords(strtolower($petugas->nama_mitra)),
+                'nama_kegiatan' => $petugas->kegiatan->nama_kegiatan,
+                'bertugas_sebagai' => $petugas->bertugas_sebagai,
+                'wilayah_tugas' => $petugas->wilayah_tugas,
+                'beban' => $petugas->beban,
+                'satuan' => $petugas->satuan,
+                'fungsi' => $petugas->kegiatan->fungsi->fungsi,
+                'honor' => $petugas->honor,
+                'tanggal_mulai' => $petugas->tanggal_mulai,
+                'tanggal_selesai' => $petugas->tanggal_selesai,
+                'alamat' => $petugas->alamat,
+                'pekerjaan' => $petugas->pekerjaan,
+                'nomor_kontrak' => $petugas->nomor_kontrak,
+                'nomor_bast' => $petugas->nomor_bast,
+                'hari' => $hari,
+                'tanggal_terbilang' => ucfirst($tanggalTerbilang),
+                'bulan' => $bulan,
+                'tahun' => date('Y'),
+                'tahun_terbilang' => ucfirst($tahunTerbilang),
+                'tanggal_kegiatan' => $tanggal_kegiatan,
+                'bulan_kegiatan' => $bulan_kegiatan,
+                'bulan_kegiatan_kapital' => strtoupper($bulan_kegiatan),
+                'tahun_kegiatan' => $tahun_kegiatan
+            ];
+
+            foreach ($data as $key => $value) {
+                $templateProcessor->setValue($key, $value);
+            }
+
+            $outputPath = storage_path('app/public/bast/BAST_' . $petugas->nama_mitra . '.docx');
+            $templateProcessor->saveAs($outputPath);
+            $zip->addFile($outputPath, 'BAST_' . $petugas->nama_mitra . '.docx');
+        }
+
+        $zip->close();
+
+        return response()->download($zipFileName)->deleteFileAfterSend(true);
     }
 }

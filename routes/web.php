@@ -29,4 +29,4 @@ Route::get('/kontrak/{slug}', [KontrakController::class, 'show'])->middleware('a
 Route::get('/mitra', [MitraController::class, 'index'])->middleware('auth');
 
 Route::get('/download/{id}', [BastController::class, 'generateBAST']);
-// Route::get('/download-all/{kegiatan_id}', [BastController::class, 'generateAllBAST']);
+Route::get('/download-all/{kegiatan_id}', [BastController::class, 'generateAllBAST']);
