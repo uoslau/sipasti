@@ -80,7 +80,7 @@ class KegiatanController extends Controller
      */
     public function show(Kegiatan $kegiatan)
     {
-        $petugasKegiatan = $kegiatan->petugasKegiatan()->orderBy('nama_mitra', 'asc')->paginate(8);
+        $petugasKegiatan = $kegiatan->petugasKegiatan()->orderBy('nama_mitra', 'asc')->paginate(9);
 
         return view('kegiatan.show', [
             'title'         => 'Kegiatan',

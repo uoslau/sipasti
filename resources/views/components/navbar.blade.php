@@ -6,25 +6,25 @@
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
                 <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $slot }}</li>
             </ol>
-            <h6 class="font-weight-bolder text-white mb-0">{{ $slot }}</h6>
+            {{-- <h6 class="font-weight-bolder text-white mb-0">{{ $slot }}</h6> --}}
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                 <div class="input-group">
                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" placeholder="Type here...">
                 </div>
-            </div>
+            </div> --}}
             <ul class="navbar-nav  justify-content-end">
                 @auth
-                    <li class="nav-item d-flex align-items-center">
+                    {{-- <li class="nav-item d-flex align-items-center">
                         <a href="#" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
                             <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @else
-                    <li class="nav-item d-flex align-items-center">
+                    <li class="nav-item d-flex justify-content-between align-items-center">
                         <a href="/login" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
                             <span class="d-sm-inline d-none">Sign In</span>

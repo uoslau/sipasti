@@ -24,12 +24,12 @@
                 <a class="nav-link {{ request()->is('kegiatan*') ? 'active' : '' }}" href="/kegiatan">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                        <i class="ni ni-calendar-grid-58 text-danger text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Kegiatan</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ request()->is('kontrak*') ? 'active' : '' }}" href="/kontrak">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -37,17 +37,17 @@
                     </div>
                     <span class="nav-link-text ms-1">Kontrak</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('penugasan*') ? 'active' : '' }}" href="/penugasan">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+                        <i class="ni ni-folder-17 text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Penugasan</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ request()->is('mitra*') ? 'active' : '' }}" href="/mitra">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -55,7 +55,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Mitra</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item">
                 <a class="nav-link " href="#">
                     <div
@@ -113,7 +113,7 @@
                     <button type="submit" class="nav-link" style="background: none; border: none;">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+                            <i class="ni ni-bold-left text-danger text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Logout</span>
                     </button>

@@ -91,7 +91,7 @@ class KontrakController extends Controller
         })->sortBy('nama_mitra')->values();
 
         return view('kontrak.show', [
-            'title' => 'Kegiatan Bulanan',
+            'title' => 'Mitra Bulanan',
             'petugas' => $totalHonorPerPetugas,
         ]);
     }

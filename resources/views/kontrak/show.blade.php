@@ -9,6 +9,16 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h6>{{ $title }}</h6>
+                        {{-- searching --}}
+                        <form action="/kontrak">
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                                <div class="input-group">
+                                    <span class="input-group-text text-body"><i class="fas fa-search"
+                                            aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search.." name="search">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -26,10 +36,10 @@
                                             Honor</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Sisa</th>
+                                            Sisa Bulan Ini</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Honor yang Bisa Dibayar</th>
+                                            Bisa Dibayar</th>
                                         {{-- <th class="text-secondary opacity-7"></th> --}}
                                     </tr>
                                 </thead>

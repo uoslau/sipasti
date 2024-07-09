@@ -35,6 +35,7 @@
                                                     <div class="my-auto">
                                                         <a href="/kontrak/{{ $b['slug'] }}">
                                                             <h6 class="mb-0 text-sm">{{ $bulan }}</h6>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>

@@ -72,12 +72,12 @@
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center text-md">
-                                                    <span class="badge badge-sm bg-success">Rp.
+                                                    <span class="badge badge-sm bg-primary">Rp.
                                                         {{ number_format($p->honor, 0, '.', '.') }}</span>
                                                 </td>
                                                 <td class="align-middle text-center text-md">
                                                     <span
-                                                        class="badge badge-sm bg-warning">{{ $p->tanggal_selesai }}</span>
+                                                        class="badge badge-sm bg-success">{{ $p->tanggal_selesai }}</span>
                                                 </td>
                                                 <td class="align-middle text-center text-md">
                                                     <span class="badge badge-sm bg-danger">{{ $p->nomor_bast }}</span>

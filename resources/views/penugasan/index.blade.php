@@ -27,7 +27,7 @@
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nomor BAST</th>
-                                        <th class="text-secondary opacity-7"></th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,7 +47,9 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $p->bertugas_sebagai }}</p>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $p->bertugas_sebagai }}
+                                                    / {{ $p->beban }} {{ $p->satuan }}
+                                                </p>
                                                 <p class="text-xs text-secondary mb-0">
                                                     @if ($p->wilayah_tugas == '1201')
                                                         Nias
@@ -62,10 +64,10 @@
                                             <td class="align-middle text-center text-md">
                                                 <span class="badge badge-sm bg-success">{{ $p->nomor_bast }}</span>
                                             </td>
-                                            <td class="align-middle">
+                                            {{-- <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
                                                     data-toggle="tooltip" data-original-title="Edit user"> Edit </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
