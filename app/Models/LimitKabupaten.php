@@ -14,4 +14,9 @@ class LimitKabupaten extends Model
     protected $table = 'limit_kabupaten';
 
     protected $guarded = ['id'];
+
+    public function kontrak()
+    {
+        return $this->hasMany(Kontrak::class);
+    }
 }

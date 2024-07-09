@@ -53,8 +53,8 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm"><a
-                                                                    href="/tabel-penugasan/{{ $p->slug }}">{{ ucwords(strtolower($p->nama_mitra)) }}</a>
+                                                            <h6 class="mb-0 text-sm">
+                                                                {{ ucwords(strtolower($p->nama_mitra)) }}
                                                             </h6>
                                                         </div>
                                                     </div>
@@ -83,7 +83,7 @@
                                                     <span class="badge badge-sm bg-danger">{{ $p->nomor_bast }}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="/download/{{ $p->id }}"
+                                                    <a href="/kegiatan/download/{{ $p->id }}"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Edit user"> Print
                                                     </a>

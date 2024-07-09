@@ -37,7 +37,7 @@
                                                     <h6 class="mb-0 text-sm">{{ $penugasan->nama_mitra }}</h6>
                                                     <p class="text-xs text-secondary mb-0">
                                                         <a
-                                                            href="/tabel-kegiatan/{{ $penugasan->kegiatan->slug }}">{{ $penugasan->kegiatan->nama_kegiatan }}</a>
+                                                            href="/kegiatan/{{ $penugasan->kegiatan->slug }}">{{ $penugasan->kegiatan->nama_kegiatan }}</a>
                                                     </p>
                                                 </div>
                                             </div>

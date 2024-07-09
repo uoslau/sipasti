@@ -36,12 +36,12 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"><a
-                                                                href="/tabel-penugasan/{{ $p->slug }}">{{ $p->nama_mitra }}</a>
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ ucwords(strtolower($p->nama_mitra)) }}
                                                         </h6>
                                                         <p class="text-xs text-secondary mb-0">
                                                             <a
-                                                                href="/tabel-kegiatan/{{ $p->kegiatan->slug }}">{{ $p->kegiatan->nama_kegiatan }}</a>
+                                                                href="/kegiatan/{{ $p->kegiatan->slug }}">{{ $p->kegiatan->nama_kegiatan }}</a>
                                                         </p>
                                                     </div>
                                                 </div>

@@ -17,7 +17,7 @@
                         <h6>Tabel {{ $title }}</h6>
                         @if ($kegiatan->isEmpty())
                         @else
-                            <a class="btn btn-icon btn-3 btn-primary" type="button" href="/tabel-kegiatan/create">
+                            <a class="btn btn-icon btn-3 btn-primary" type="button" href="/kegiatan/create">
                                 <span class="btn-inner--text">Tambah Kegiatan</span>
                             </a>
                         @endif
@@ -31,7 +31,7 @@
                                         <tr>
                                             <th> --}}
                                         <a class="btn btn-icon btn-3 btn-primary ms-3" type="button"
-                                            href="/tabel-kegiatan/create">
+                                            href="/kegiatan/create">
                                             <span class="btn-inner--text">Tambah Kegiatan</span>
                                         </a>
                                         {{-- </th>
@@ -69,7 +69,7 @@
                                                         class="d-flex
                                                     px-2">
                                                         <div class="my-auto">
-                                                            <a href="/tabel-kegiatan/{{ $k->slug }}">
+                                                            <a href="/kegiatan/{{ $k->slug }}">
                                                                 <h6 class="mb-0 text-sm">{{ $k->nama_kegiatan }}</h6>
                                                             </a>
                                                         </div>
@@ -111,7 +111,7 @@
                                                 </td>
                                                 {{-- TITIK 3 --}}
                                                 <td class="align-middle">
-                                                    <a href="/download-all/{{ $k->id }}"
+                                                    <a href="/kegiatan/download-all/{{ $k->id }}"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Edit user"> Print
                                                     </a>

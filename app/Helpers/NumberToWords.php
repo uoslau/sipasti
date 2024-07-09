@@ -17,7 +17,7 @@ class NumberToWords
         } else if ($number < 100) {
             $temp = self::toWords($number / 10) . " puluh " . self::toWords($number % 10);
         } else if ($number < 200) {
-            $temp = " seratus" . self::toWords($number - 100);
+            $temp = " seratus " . self::toWords($number - 100);
         } else if ($number < 1000) {
             $temp = self::toWords($number / 100) . " ratus " . self::toWords($number % 100);
         } else if ($number < 2000) {

@@ -12,6 +12,7 @@ class PetugasKegiatan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $fillable = ['honor'];
 
     public function kegiatan()
     {
@@ -26,5 +27,10 @@ class PetugasKegiatan extends Model
     public function kontrak()
     {
         return $this->hasMany(Kontrak::class);
+    }
+
+    public function limitKabupaten()
+    {
+        return $this->belongsTo(LimitKabupaten::class);
     }
 }

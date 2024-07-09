@@ -10,7 +10,7 @@
                         <h6>{{ $title }}</h6>
                     </div>
                     <div class="card-body px-4 pt-0 pb-2">
-                        <form method="POST" action="/tabel-kegiatan">
+                        <form method="POST" action="/kegiatan">
                             @csrf
                             <div class="row">
                                 {{-- NAMA KEGIATAN --}}

@@ -72,7 +72,7 @@ class KegiatanController extends Controller
             'honor_nias_barat'  => $validatedData['honor_nias_barat'] ?? 0,
         ]);
 
-        return redirect('/tabel-kegiatan')->with('success', 'Kegiatan berhasil ditambahkan!');
+        return redirect('/kegiatan')->with('success', 'Kegiatan berhasil ditambahkan!');
     }
 
     /**

@@ -1,4 +1,4 @@
-{{-- @dd($petugasBulan) --}}
+{{-- @dd($petugas) --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
@@ -20,38 +20,56 @@
                                             Nama</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Wilayah Tugas</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Honor</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jumlah Kegiatan</th>
-                                        <th class="text-secondary opacity-7"></th>
+                                            Sisa</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Honor yang Bisa Dibayar</th>
+                                        {{-- <th class="text-secondary opacity-7"></th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($petugasBulan as $p)
+                                    @foreach ($petugas as $p)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">
-                                                            {{ $p['nama_mitra'] }}
+                                                            {{ ucwords(strtolower($p['nama_mitra'])) }}
                                                         </h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-success">Rp.
+                                                <span class="badge badge-sm bg-primary">{{ $p['wilayah_tugas'] }}</span>
+                                            </td>
+                                            <td class="align-middle text-center text-md">
+                                                <span class="badge badge-sm bg-success">Rp
                                                     {{ number_format($p['total_honor'], 0, '.', '.') }}</span>
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-danger">{{ $p['jumlah_kegiatan'] }}
-                                                    Kegiatan</span>
+                                                <span class="badge badge-sm bg-danger">Rp
+                                                    {{ number_format($p['honor_max'] - $p['total_honor'], 0, '.', '.') }}</span>
                                             </td>
-                                            <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                            <td class="align-middle text-center text-md">
+                                                <span class="badge badge-sm bg-success">
+                                                    @if ($p['total_honor'] > $p['honor_max'])
+                                                        Rp {{ number_format($p['honor_max'], 0, '.', ',') }}
+                                                    @else
+                                                        Rp {{ number_format($p['total_honor'], 0, '.', ',') }}
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            {{-- <td class="align-middle">
+                                                <a href="#" class="text-secondary font-weight-bold text-xs"
                                                     data-toggle="tooltip" data-original-title="Edit user"> Print
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

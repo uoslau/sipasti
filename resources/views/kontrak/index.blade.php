@@ -19,13 +19,13 @@
                                         <th style="width: 500px;"
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Bulan-Tahun</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jumlah Kegiatan</th>
+                                        {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Jumlah Kegiatan</th> --}}
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($groupedKegiatan as $monthYear => $g)
+                                    @foreach ($groupedKegiatan as $bulan => $b)
                                         <tr>
                                             <td
                                                 style="max-width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -33,21 +33,22 @@
                                                     class="d-flex
                                                     px-2">
                                                     <div class="my-auto">
-                                                        <a href="/kontrak/{{ $g['slug'] }}">
-                                                            <h6 class="mb-0 text-sm">{{ $monthYear }}</h6>
+                                                        <a href="/kontrak/{{ $b['slug'] }}">
+                                                            <h6 class="mb-0 text-sm">{{ $bulan }}</h6>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <div class="d-flex px-2">
                                                     <div class="my-auto">
                                                         <h6 class="mb-0 text-sm">Jumlah Kegiatan
                                                         </h6>
                                                     </div>
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                             <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                                <a href="/kontrak/download-all/{{ $b['slug'] }}"
+                                                    class="text-secondary font-weight-bold text-xs"
                                                     data-toggle="tooltip" data-original-title="Edit user"> Print
                                                 </a>
                                             </td>

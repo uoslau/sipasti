@@ -15,7 +15,7 @@ class PenugasanController extends Controller
             ->orderBy('nama_mitra', 'asc')
             ->paginate(7);
 
-        return view('tabel-penugasan', [
+        return view('penugasan', [
             'title'         => 'Tabel Penugasan',
             'penugasans'    => $penugasans
         ]);

@@ -39,31 +39,31 @@ class BastController extends Controller
         $tahunTerbilang = NumberToWords::toWords($tahun);
 
         $data = [
-            'sktnp' => $petugas->sktnp,
-            'nama_mitra' => ucwords(strtolower($petugas->nama_mitra)),
-            'nama_kegiatan' => $petugas->kegiatan->nama_kegiatan,
-            'bertugas_sebagai' => $petugas->bertugas_sebagai,
-            'wilayah_tugas' => $petugas->wilayah_tugas,
-            'beban' => $petugas->beban,
-            'satuan' => $petugas->satuan,
-            'fungsi' => $petugas->kegiatan->fungsi->fungsi,
-            'honor' => $petugas->honor,
-            'tanggal_mulai' => $petugas->tanggal_mulai,
-            'tanggal_selesai' => $petugas->tanggal_selesai,
-            'alamat' => $petugas->alamat,
-            'pekerjaan' => $petugas->pekerjaan,
-            'nomor_kontrak' => $petugas->nomor_kontrak,
-            'nomor_bast' => $petugas->nomor_bast,
-            'hari' => $hari,
-            'tanggal_terbilang' => ucfirst($tanggalTerbilang),
-            'bulan' => $bulan,
-            'tahun' => date('Y'),
-            'tahun_terbilang' => ucfirst($tahunTerbilang),
-            // 'hari_kegiatan' => $hari_kegiatan,
-            'tanggal_kegiatan' => $tanggal_kegiatan,
-            'bulan_kegiatan' => $bulan_kegiatan,
-            'bulan_kegiatan_kapital' => strtoupper($bulan_kegiatan),
-            'tahun_kegiatan' => $tahun_kegiatan
+            'sktnp'                     => $petugas->sktnp,
+            'nama_mitra'                => ucwords(strtolower($petugas->nama_mitra)),
+            'nama_kegiatan'             => $petugas->kegiatan->nama_kegiatan,
+            'bertugas_sebagai'          => $petugas->bertugas_sebagai,
+            'wilayah_tugas'             => $petugas->wilayah_tugas,
+            'beban'                     => $petugas->beban,
+            'satuan'                    => $petugas->satuan,
+            'fungsi'                    => $petugas->kegiatan->fungsi->fungsi,
+            'honor'                     => $petugas->honor,
+            'tanggal_mulai'             => $petugas->tanggal_mulai,
+            'tanggal_selesai'           => $petugas->tanggal_selesai,
+            'alamat'                    => $petugas->alamat,
+            'pekerjaan'                 => $petugas->pekerjaan,
+            'nomor_kontrak'             => $petugas->nomor_kontrak,
+            'nomor_bast'                => $petugas->nomor_bast,
+            'hari'                      => $hari,
+            'tanggal_terbilang'         => ucfirst($tanggalTerbilang),
+            'bulan'                     => $bulan,
+            'tahun'                     => date('Y'),
+            'tahun_terbilang'           => ucfirst($tahunTerbilang),
+            // 'hari_kegiatan'          => $hari_kegiatan,
+            'tanggal_kegiatan'          => $tanggal_kegiatan,
+            'bulan_kegiatan'            => $bulan_kegiatan,
+            'bulan_kegiatan_kapital'    => strtoupper($bulan_kegiatan),
+            'tahun_kegiatan'            => $tahun_kegiatan
 
         ];
 
@@ -71,7 +71,7 @@ class BastController extends Controller
             $templateProcessor->setValue($key, $value);
         }
 
-        $outputPath = storage_path('app/public/bast/BAST_' . $petugas->nama_mitra . '.docx');
+        $outputPath = storage_path('app/public/bast/BAST_' . str_replace(' ', '_', $data['nama_mitra']) . '.docx');
         $templateProcessor->saveAs($outputPath);
 
         return response()->download($outputPath)->deleteFileAfterSend(true);
@@ -82,7 +82,7 @@ class BastController extends Controller
         $petugasList = PetugasKegiatan::where('kegiatan_id', $kegiatanId)->get();
 
         if ($petugasList->isEmpty()) {
-            return response()->json(['error' => 'No petugas found for the given kegiatan.'], 404);
+            return response()->json(['error' => 'Belum ada petugas pada kegiatan.'], 404);
         }
 
         $templatePath = storage_path('app/public/template/template_bast.docx');
@@ -98,6 +98,8 @@ class BastController extends Controller
         if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
             return response()->json(['error' => 'Could not create zip file.'], 500);
         }
+
+        $wordFiles = [];
 
         foreach ($petugasList as $petugas) {
             $templateProcessor = new TemplateProcessor($templatePath);
@@ -117,42 +119,50 @@ class BastController extends Controller
             $tahunTerbilang = NumberToWords::toWords($tahun);
 
             $data = [
-                'sktnp' => $petugas->sktnp,
-                'nama_mitra' => ucwords(strtolower($petugas->nama_mitra)),
-                'nama_kegiatan' => $petugas->kegiatan->nama_kegiatan,
-                'bertugas_sebagai' => $petugas->bertugas_sebagai,
-                'wilayah_tugas' => $petugas->wilayah_tugas,
-                'beban' => $petugas->beban,
-                'satuan' => $petugas->satuan,
-                'fungsi' => $petugas->kegiatan->fungsi->fungsi,
-                'honor' => $petugas->honor,
-                'tanggal_mulai' => $petugas->tanggal_mulai,
-                'tanggal_selesai' => $petugas->tanggal_selesai,
-                'alamat' => $petugas->alamat,
-                'pekerjaan' => $petugas->pekerjaan,
-                'nomor_kontrak' => $petugas->nomor_kontrak,
-                'nomor_bast' => $petugas->nomor_bast,
-                'hari' => $hari,
-                'tanggal_terbilang' => ucfirst($tanggalTerbilang),
-                'bulan' => $bulan,
-                'tahun' => date('Y'),
-                'tahun_terbilang' => ucfirst($tahunTerbilang),
-                'tanggal_kegiatan' => $tanggal_kegiatan,
-                'bulan_kegiatan' => $bulan_kegiatan,
-                'bulan_kegiatan_kapital' => strtoupper($bulan_kegiatan),
-                'tahun_kegiatan' => $tahun_kegiatan
+                'bulan_kegiatan_kapital'    => strtoupper($bulan_kegiatan),
+                'tahun_kegiatan'            => $tahun_kegiatan,
+                'nomor_bast'                => $petugas->nomor_bast,
+                'hari'                      => $hari,
+                'tanggal_terbilang'         => ucfirst($tanggalTerbilang),
+                'bulan'                     => $bulan,
+                'tahun_terbilang'           => ucfirst($tahunTerbilang),
+                'nama_mitra'                => ucwords(strtolower($petugas->nama_mitra)),
+                'alamat'                    => $petugas->alamat,
+                'bulan_kegiatan'            => $bulan_kegiatan,
+                'tanggal_kegiatan'          => $tanggal_kegiatan,
+                'nomor_kontrak'             => $petugas->nomor_kontrak,
+                'nama_kegiatan'             => $petugas->kegiatan->nama_kegiatan,
+                'beban'                     => $petugas->beban,
+                'satuan'                    => $petugas->satuan,
+                'fungsi'                    => $petugas->kegiatan->fungsi->fungsi,
+
+                // 'sktnp'                     => $petugas->sktnp,
+                // 'bertugas_sebagai'          => $petugas->bertugas_sebagai,
+                // 'wilayah_tugas'             => $petugas->wilayah_tugas,
+                // 'honor'                     => $petugas->honor,
+                // 'tanggal_mulai'             => $petugas->tanggal_mulai,
+                // 'tanggal_selesai'           => $petugas->tanggal_selesai,
+                // 'pekerjaan'                 => $petugas->pekerjaan,
+                // 'tahun'                     => date('Y'),
             ];
 
             foreach ($data as $key => $value) {
                 $templateProcessor->setValue($key, $value);
             }
 
-            $outputPath = storage_path('app/public/bast/BAST_' . $petugas->nama_mitra . '.docx');
+            $outputPath = storage_path('app/public/bast/BAST_' . str_replace(' ', '_', $data['nama_mitra']) . '.docx');
             $templateProcessor->saveAs($outputPath);
-            $zip->addFile($outputPath, 'BAST_' . $petugas->nama_mitra . '.docx');
+            $zip->addFile($outputPath, 'BAST_' . str_replace(' ', '_', $data['nama_mitra']) . '.docx');
+            $wordFiles[] = $outputPath;
         }
 
         $zip->close();
+
+        foreach ($wordFiles as $filePath) {
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
 
         return response()->download($zipFileName)->deleteFileAfterSend(true);
     }
