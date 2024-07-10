@@ -70,10 +70,10 @@
                                             <input type="password" class="form-control form-control-lg"
                                                 placeholder="password" aria-label="password" name="password" / required>
                                         </div>
-                                        <div class="form-check form-switch">
+                                        {{-- <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" id="rememberMe" />
                                             <label class="form-check-label" for="rememberMe">Remember me</label>
-                                        </div>
+                                        </div> --}}
                                         <div class="text-center">
                                             <button type="submit"
                                                 class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>
@@ -85,10 +85,11 @@
                         <div
                             class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
                             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg'); background-size: cover">
+                                style="background-image: url('../assets/img/kantor_0.png'); background-size: cover">
                                 <span class="mask bg-gradient-primary opacity-6"></span>
                                 <h4 class="mt-5 text-white font-weight-bolder position-relative">Sistem Informasi
                                     Pengelolaan Surat Perjanjian Kerja dan Berita Acara Serah Terima</h4>
+                                <h3 class="text-white font-weight-bolder position-relative">(SIPASTI)</h3>
                                 <p class="text-white position-relative">BPS Kabupaten Nias</p>
                             </div>
                         </div>

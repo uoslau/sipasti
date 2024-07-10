@@ -25,7 +25,7 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th style="width: 500px;"
+                                        <th style="width: 300px;"
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nama</th>
                                         <th
@@ -56,7 +56,16 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-primary">{{ $p['wilayah_tugas'] }}</span>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">
+                                                        @if ($p['wilayah_tugas'] == '1201')
+                                                            Nias
+                                                        @else
+                                                            Nias Barat
+                                                        @endif
+                                                    </h6>
+                                                </div>
+
                                             </td>
                                             <td class="align-middle text-center text-md">
                                                 <span class="badge badge-sm bg-success">Rp

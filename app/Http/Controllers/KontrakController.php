@@ -32,7 +32,6 @@ class KontrakController extends Controller
             $slug = Str::slug($key);
             return [$key => ['items' => $items, 'slug' => $slug]];
         });
-        dd($kegiatanWithSlug);
 
         return view('kontrak.index', [
             'title'             => 'Kontrak',
@@ -130,7 +129,7 @@ class KontrakController extends Controller
         $kegiatanList = PetugasKegiatan::whereMonth('tanggal_mulai', $date->month)
             ->whereYear('tanggal_mulai', $date->year)
             ->get();
-        // dd($kegiatanList);
+
         if ($kegiatanList->isEmpty()) {
             return response()->json(['error' => 'Belum ada kegiatan pada bulan tersebut.'], 404);
         }
@@ -146,7 +145,6 @@ class KontrakController extends Controller
             }
             $petugasKegiatan[$petugasId]['kegiatan'][] = $kegiatan;
         }
-        // dd($petugasKegiatan);
 
         $templatePath = storage_path('app/public/template/template_kontrak.docx');
 
@@ -175,7 +173,7 @@ class KontrakController extends Controller
             $kegiatanList = $p['kegiatan'];
             $total_honor = array_sum(array_column($kegiatanList, 'honor'));
             $total_honor_terbilang = NumberToWords::toWords($total_honor);
-            // dd($kegiatanList);
+
             $kegiatanDate = Carbon::createFromFormat('Y-m-d', $kegiatanList[0]->tanggal_mulai);
             $tanggal_kegiatan = $kegiatanDate->format('d');
             $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
@@ -205,7 +203,7 @@ class KontrakController extends Controller
             }
 
             $templateProcessor->cloneRow('nama_kegiatan', count($kegiatanList));
-            // dd($kegiatanList);
+
             foreach ($kegiatanList as $index => $k) {
                 $rowIndex = $index + 1;
                 $tanggal_mulai = is_string($k->tanggal_mulai) ? Carbon::parse($k->tanggal_mulai) : $k->tanggal_mulai;
@@ -225,7 +223,6 @@ class KontrakController extends Controller
             $zip->addFile($outputPath, 'KONTRAK_' . str_replace(' ', '_', $data['nama_mitra']) . '.docx');
             $wordFiles[] = $outputPath;
         }
-        // dd($data);
 
         $zip->close();
 

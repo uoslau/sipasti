@@ -9,6 +9,12 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h6>Kegiatan: {{ $kegiatan }}</h6>
+                        @if ($petugas->isEmpty())
+                            <a class="btn btn-icon btn-3 btn-primary" type="button"
+                                href="app/public/template/template_import.xlsx" download="template_import.xlsx">
+                                <span class="btn-inner--text">Template</span>
+                            </a>
+                        @endif
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">

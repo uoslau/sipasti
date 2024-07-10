@@ -50,6 +50,11 @@ class DashboardController extends Controller
             return $group->sum('petugas_kegiatan_sum_honor');
         });
 
+        $penugasan = PetugasKegiatan::with(['kegiatan'])
+            ->orderBy('kegiatan_id', 'desc')
+            ->orderBy('nama_mitra', 'asc')
+            ->paginate(7);
+
         // dd($totalHonorPerMonth);
         // dd($kegiatanWithSlug);
 
@@ -60,6 +65,7 @@ class DashboardController extends Controller
             'latestKegiatan'    => $latestKegiatan,
             'kontrak'           => $kegiatanWithSlug,
             'totalHonorPerMonth' => $totalHonorPerMonth,
+            'penugasan'         => $penugasan
         ]);
     }
 }
