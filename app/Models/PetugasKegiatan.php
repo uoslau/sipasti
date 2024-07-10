@@ -12,7 +12,8 @@ class PetugasKegiatan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $fillable = ['honor'];
+    protected $fillable = ['sktnp', 'nama_mitra', 'kegiatan_id', 'bertugas_sebagai', 'wilayah_tugas', 'beban', 'satuan', 'honor', 'tanggal_mulai', 'tanggal_selesai', 'alamat', 'pekerjaan', 'nomor_bast', 'nomor_kontrak'];
+    protected $table = 'petugas_kegiatans';
 
     public function kegiatan()
     {

@@ -32,6 +32,7 @@ class KontrakController extends Controller
             $slug = Str::slug($key);
             return [$key => ['items' => $items, 'slug' => $slug]];
         });
+        dd($kegiatanWithSlug);
 
         return view('kontrak.index', [
             'title'             => 'Kontrak',
