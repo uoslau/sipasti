@@ -164,20 +164,28 @@ class KontrakController extends Controller
         foreach ($petugasKegiatan as $p) {
             $templateProcessor = new TemplateProcessor($templatePath);
 
-            $currentDate = Carbon::now();
-            $tanggal = $currentDate->format('d');
-            $bulan = NumberToWords::monthName($currentDate->format('m'));
-            $tahun = $currentDate->format('Y');
-            $hari = NumberToWords::dayName($currentDate->format('l'));
+            $currentDate = Carbon::createFromFormat('Y-m-d', $kegiatanList[0]->tanggal_mulai);
 
-            $kegiatanList = $p['kegiatan'];
-            $total_honor = array_sum(array_column($kegiatanList, 'honor'));
-            $total_honor_terbilang = NumberToWords::toWords($total_honor);
+            if ($currentDate->isSaturday() || $currentDate->isSunday()) {
+                $kontrakDate = $currentDate->previous(Carbon::FRIDAY);
+            } else {
+                $kontrakDate = $currentDate->copy()->startOfMonth();
+            }
+
+            $tanggal = $kontrakDate->format('d');
+            $bulan = NumberToWords::monthName($kontrakDate->format('m'));
+            $tahun = $kontrakDate->format('Y');
+            $hari = NumberToWords::dayName($kontrakDate->format('l'));
+
 
             $kegiatanDate = Carbon::createFromFormat('Y-m-d', $kegiatanList[0]->tanggal_mulai);
             $tanggal_kegiatan = $kegiatanDate->format('d');
             $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
             $tahun_kegiatan = $kegiatanDate->format('Y');
+
+            $kegiatanList = $p['kegiatan'];
+            $total_honor = array_sum(array_column($kegiatanList, 'honor'));
+            $total_honor_terbilang = NumberToWords::toWords($total_honor);
 
             $data = [
                 'bulan_kegiatan_kapital'    => strtoupper($bulan_kegiatan),

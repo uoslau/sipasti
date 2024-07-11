@@ -23,9 +23,22 @@ class DatabaseSeeder extends Seeder
             'is_admin'  => 1
         ]);
 
-        MataAnggaran::create(['mata_anggaran' => '2909.BMA.005.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2898.BMA.007.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2899.BMA.006.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2902.BMA.004.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2902.QMA.006.005.A.521213']);
         MataAnggaran::create(['mata_anggaran' => '2903.BMA.009.005.A.521213']);
         MataAnggaran::create(['mata_anggaran' => '2904.BMA.006.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2905.BMA.004.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2906.BMA.006.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2907.BMA.008.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2908.BMA.004.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2909.BMA.005.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2910.BMA.008.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2910.QMA.006.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2910.QMA.007.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '2910.QMA.010.005.A.521213']);
+        MataAnggaran::create(['mata_anggaran' => '29106.BMA.006.005.A.521213']);
 
         Fungsi::create(['fungsi' => 'Distribusi']);
         Fungsi::create(['fungsi' => 'IPDS']);

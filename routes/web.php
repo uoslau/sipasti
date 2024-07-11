@@ -17,7 +17,6 @@ Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/kegiatan', KegiatanController::class)->except('show')->middleware('auth');
 Route::get('/kegiatan/{kegiatan:slug}', [KegiatanController::class, 'show'])->middleware('auth');
-Route::get('/kegiatan/download/{id}', [BastController::class, 'generateBAST'])->middleware('auth');
 Route::get('/kegiatan/download-all/{kegiatan_id}', [BastController::class, 'generateAllBAST'])->middleware('auth');
 
 Route::get('/penugasan', [PetugasKegiatanController::class, 'index'])->middleware('auth');
@@ -27,6 +26,6 @@ Route::get('/kontrak', [KontrakController::class, 'index'])->middleware('auth');
 Route::get('/kontrak/{slug}', [KontrakController::class, 'show'])->middleware('auth');
 Route::get('/kontrak/download-all/{slug}', [KontrakController::class, 'generateAllKontrak'])->middleware('auth');
 
-// Route::get('/tabel-penugasan/{penugasan:slug}', [PenugasanController::class, 'show'])->middleware('auth');
-
 Route::get('/mitra', [MitraController::class, 'index'])->middleware('auth');
+
+// Route::get('/tabel-penugasan/{penugasan:slug}', [PenugasanController::class, 'show'])->middleware('auth');

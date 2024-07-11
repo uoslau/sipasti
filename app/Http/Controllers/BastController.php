@@ -11,72 +11,6 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class BastController extends Controller
 {
-    public function generateBAST($id)
-    {
-        $petugas = PetugasKegiatan::findOrFail($id);
-
-        $templatePath = storage_path('app/public/template/template_bast.docx');
-
-        if (!file_exists($templatePath)) {
-            return response()->json(['error' => 'Template file not found.'], 404);
-        }
-
-        $templateProcessor = new TemplateProcessor($templatePath);
-
-        $currentDate = Carbon::now();
-        $tanggal = $currentDate->format('d');
-        $bulan = NumberToWords::monthName($currentDate->format('m'));
-        $tahun = $currentDate->format('Y');
-        $hari = NumberToWords::dayName($currentDate->format('l'));
-
-        $kegiatanDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
-        $tanggal_kegiatan = $kegiatanDate->format('d');
-        $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
-        $tahun_kegiatan = $kegiatanDate->format('Y');
-        // $hari_kegiatan = NumberToWords::dayName($kegiatanDate->format('l'));
-
-        $tanggalTerbilang = NumberToWords::toWords($tanggal);
-        $tahunTerbilang = NumberToWords::toWords($tahun);
-
-        $data = [
-            'sktnp'                     => $petugas->sktnp,
-            'nama_mitra'                => ucwords(strtolower($petugas->nama_mitra)),
-            'nama_kegiatan'             => $petugas->kegiatan->nama_kegiatan,
-            'bertugas_sebagai'          => $petugas->bertugas_sebagai,
-            'wilayah_tugas'             => $petugas->wilayah_tugas,
-            'beban'                     => $petugas->beban,
-            'satuan'                    => $petugas->satuan,
-            'fungsi'                    => $petugas->kegiatan->fungsi->fungsi,
-            'honor'                     => $petugas->honor,
-            'tanggal_mulai'             => $petugas->tanggal_mulai,
-            'tanggal_selesai'           => $petugas->tanggal_selesai,
-            'alamat'                    => $petugas->alamat,
-            'pekerjaan'                 => $petugas->pekerjaan,
-            'nomor_kontrak'             => $petugas->nomor_kontrak,
-            'nomor_bast'                => $petugas->nomor_bast,
-            'hari'                      => $hari,
-            'tanggal_terbilang'         => ucfirst($tanggalTerbilang),
-            'bulan'                     => $bulan,
-            'tahun'                     => date('Y'),
-            'tahun_terbilang'           => ucfirst($tahunTerbilang),
-            // 'hari_kegiatan'          => $hari_kegiatan,
-            'tanggal_kegiatan'          => $tanggal_kegiatan,
-            'bulan_kegiatan'            => $bulan_kegiatan,
-            'bulan_kegiatan_kapital'    => strtoupper($bulan_kegiatan),
-            'tahun_kegiatan'            => $tahun_kegiatan
-
-        ];
-
-        foreach ($data as $key => $value) {
-            $templateProcessor->setValue($key, $value);
-        }
-
-        $outputPath = storage_path('app/public/bast/BAST_' . str_replace(' ', '_', $data['nama_mitra']) . '.docx');
-        $templateProcessor->saveAs($outputPath);
-
-        return response()->download($outputPath)->deleteFileAfterSend(true);
-    }
-
     public function generateAllBAST($kegiatanId)
     {
         $petugasList = PetugasKegiatan::where('kegiatan_id', $kegiatanId)->get();
@@ -104,28 +38,35 @@ class BastController extends Controller
         foreach ($petugasList as $petugas) {
             $templateProcessor = new TemplateProcessor($templatePath);
 
-            $currentDate = Carbon::now();
-            $tanggal = $currentDate->format('d');
-            $bulan = NumberToWords::monthName($currentDate->format('m'));
-            $tahun = $currentDate->format('Y');
-            $hari = NumberToWords::dayName($currentDate->format('l'));
+            // $currentDate = Carbon::now();
+            // $hari = NumberToWords::dayName($currentDate->format('l'));
+            // $tanggal = $currentDate->format('d');
+            // $tanggalTerbilang = NumberToWords::toWords($tanggal);
+            // $bulan = NumberToWords::monthName($currentDate->format('m'));
+            // $tahun = $currentDate->format('Y');
+            // $tahunTerbilang = NumberToWords::toWords($tahun);
 
             $kegiatanDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
             $tanggal_kegiatan = $kegiatanDate->format('d');
             $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
             $tahun_kegiatan = $kegiatanDate->format('Y');
 
-            $tanggalTerbilang = NumberToWords::toWords($tanggal);
-            $tahunTerbilang = NumberToWords::toWords($tahun);
+            $bastDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_selesai);
+            $hari_bast = NumberToWords::dayName($bastDate->format('l'));
+            $tanggal_bast = $bastDate->format('d');
+            $tanggal_bast_terbilang = NumberToWords::toWords($tanggal_bast);
+            $bulan_bast = NumberToWords::monthName($bastDate->format('m'));
+            $tahun_bast = $bastDate->format('Y');
+            $tahun_bast_terbilang = NumberToWords::toWords($tahun_bast);
 
             $data = [
                 'bulan_kegiatan_kapital'    => strtoupper($bulan_kegiatan),
                 'tahun_kegiatan'            => $tahun_kegiatan,
                 'nomor_bast'                => $petugas->nomor_bast,
-                'hari'                      => $hari,
-                'tanggal_terbilang'         => ucfirst($tanggalTerbilang),
-                'bulan'                     => $bulan,
-                'tahun_terbilang'           => ucfirst($tahunTerbilang),
+                'hari'                      => $hari_bast,
+                'tanggal_terbilang'         => ucfirst($tanggal_bast_terbilang),
+                'bulan'                     => $bulan_bast,
+                'tahun_terbilang'           => ucfirst($tahun_bast_terbilang),
                 'nama_mitra'                => ucwords(strtolower($petugas->nama_mitra)),
                 'alamat'                    => $petugas->alamat,
                 'bulan_kegiatan'            => $bulan_kegiatan,
@@ -135,15 +76,6 @@ class BastController extends Controller
                 'beban'                     => $petugas->beban,
                 'satuan'                    => $petugas->satuan,
                 'fungsi'                    => $petugas->kegiatan->fungsi->fungsi,
-
-                // 'sktnp'                     => $petugas->sktnp,
-                // 'bertugas_sebagai'          => $petugas->bertugas_sebagai,
-                // 'wilayah_tugas'             => $petugas->wilayah_tugas,
-                // 'honor'                     => $petugas->honor,
-                // 'tanggal_mulai'             => $petugas->tanggal_mulai,
-                // 'tanggal_selesai'           => $petugas->tanggal_selesai,
-                // 'pekerjaan'                 => $petugas->pekerjaan,
-                // 'tahun'                     => date('Y'),
             ];
 
             foreach ($data as $key => $value) {

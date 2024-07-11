@@ -50,7 +50,6 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nomor BAST</th>
-                                            <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,12 +86,6 @@
                                                 </td>
                                                 <td class="align-middle text-center text-md">
                                                     <span class="badge badge-sm bg-danger">{{ $p->nomor_bast }}</span>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="/kegiatan/download/{{ $p->id }}"
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        data-toggle="tooltip" data-original-title="Edit user"> Print
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
