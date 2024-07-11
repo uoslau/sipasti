@@ -20,7 +20,7 @@ class KegiatanController extends Controller
             ->select('id', 'nama_kegiatan', 'slug', 'tanggal_mulai', 'tanggal_selesai', 'mata_anggaran_id', 'fungsi_id')
             ->withSum('petugasKegiatan', 'honor')
             ->orderBy('id', 'desc')
-            ->paginate(6);
+            ->paginate(10);
 
         return view('kegiatan.index', [
             'title'     => 'Kegiatan',

@@ -68,7 +68,7 @@
 
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-success">Rp
+                                                <span class="badge badge-sm bg-primary">Rp
                                                     {{ number_format($p['total_honor'], 0, '.', '.') }}</span>
                                             </td>
                                             <td class="align-middle text-center text-md">

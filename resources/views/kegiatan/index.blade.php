@@ -87,13 +87,13 @@
                                                 </td>
                                                 {{-- TANGGAL MULAI --}}
                                                 <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                    <span class="badge badge-sm bg-success">
                                                         {{ $k->tanggal_mulai }}
                                                     </span>
                                                 </td>
                                                 {{-- TANGGAL SELESAI --}}
                                                 <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                    <span class="badge badge-sm bg-success">
                                                         {{ $k->tanggal_selesai }}
                                                     </span>
                                                 </td>

@@ -26,7 +26,7 @@ class BastController extends Controller
         }
 
         $zip = new ZipArchive();
-        $namaKegiatan = $petugasList->first()->kegiatan->nama_kegiatan;
+        $namaKegiatan = $petugasList->first()->kegiatan->slug;
         $zipFileName = storage_path('app/public/bast/BAST_' . str_replace(' ', '_', $namaKegiatan) . '.zip');
 
         if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {

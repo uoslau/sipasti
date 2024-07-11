@@ -38,7 +38,6 @@ class DatabaseSeeder extends Seeder
         MataAnggaran::create(['mata_anggaran' => '2910.QMA.006.005.A.521213']);
         MataAnggaran::create(['mata_anggaran' => '2910.QMA.007.005.A.521213']);
         MataAnggaran::create(['mata_anggaran' => '2910.QMA.010.005.A.521213']);
-        MataAnggaran::create(['mata_anggaran' => '29106.BMA.006.005.A.521213']);
 
         Fungsi::create(['fungsi' => 'Distribusi']);
         Fungsi::create(['fungsi' => 'IPDS']);
