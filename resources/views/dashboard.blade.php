@@ -137,7 +137,7 @@
                 </div>
             </div>
             {{-- KONTRAK --}}
-            <div class="col-lg-3 mb-lg-0 mb-4">
+            {{-- <div class="col-lg-3 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 p-3">
                         <h6 class="mb-0 text-center">KONTRAK BULANAN</h6>
@@ -165,6 +165,48 @@
                                 </li>
                             @endforeach
                         </ul>
+                    </div>
+                </div>
+            </div> --}}
+            <div class="col-lg-3 mb-lg-0 mb-4">
+                <div class="card">
+                    <div class="card-header pb-0 p-3">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="mb-2">KONTRAK BULANAN</h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center">
+                            <tbody>
+                                @foreach ($kontrak as $bulan => $k)
+                                    <tr>
+                                        <td class="w-30">
+
+                                            <div class="d-flex px-2 py-1 align-items-center">
+                                                <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center">
+                                                    <i class="ni ni-bold-right text-light opacity-10"></i>
+                                                </div>
+                                                <div>
+                                                    <a href="/kontrak/{{ $k['slug'] }}">
+                                                        <div class="d-flex flex-column">
+                                                            <h6 class="mb-1 text-dark text-sm">{{ $bulan }}</h6>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="w-30 text-right">
+                                            <div class="ms-4">
+                                                <a href="/kontrak/download-all/{{ $k['slug'] }}"
+                                                    class="text-secondary font-weight-bold text-xs"
+                                                    data-toggle="tooltip" data-original-title="print">Print
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
