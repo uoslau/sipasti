@@ -1,13 +1,12 @@
-{{-- @dd($kegiatan) --}}
 <x-layout>
 
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    @if (session()->has('success'))
-        <div class="alert alert-danger" role="alert">
+    {{-- @if (session()->has('success'))
+        <div class="alert alert-info role="alert">
             {{ session('success') }}
         </div>
-    @endif
+    @endif --}}
 
     <div class="container-fluid py-1">
         <div class="row">
@@ -49,13 +48,13 @@
                                                 Budget</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Fungsi</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Tanggal Mulai</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Tanggal Selesai</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Fungsi</th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
@@ -85,6 +84,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                {{-- FUNGSI --}}
+                                                <td class="align-middle text-center">
+                                                    <span class="text-xs font-weight-bold">
+                                                        {{ $k->fungsi->fungsi ?? 'NA' }}
+                                                    </span>
+                                                </td>
                                                 {{-- TANGGAL MULAI --}}
                                                 <td class="align-middle text-center">
                                                     <span class="badge badge-sm bg-success">
@@ -103,15 +108,9 @@
                                                     {{ $k->mataAnggaran->mata_anggaran ?? 'NA' }}
                                                 </span>
                                             </td> --}}
-                                                {{-- FUNGSI --}}
-                                                <td class="align-middle text-center">
-                                                    <span class="text-xs font-weight-bold">
-                                                        {{ $k->fungsi->fungsi ?? 'NA' }}
-                                                    </span>
-                                                </td>
                                                 {{-- TITIK 3 --}}
                                                 <td class="align-middle">
-                                                    <a href="/kegiatan/download-all/{{ $k->id }}"
+                                                    <a href="/kegiatan/download-all/{{ $k->slug }}"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Edit user"> Print
                                                     </a>

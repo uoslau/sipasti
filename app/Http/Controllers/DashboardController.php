@@ -57,7 +57,7 @@ class DashboardController extends Controller
 
         // dd($totalHonorPerMonth);
         // dd($kegiatanWithSlug);
-
+        // dd($kegiatanWithSlug);
         return view('/dashboard', [
             'title'             => 'Dashboard',
             'totalHonor'        => $currentYearTotalHonor,

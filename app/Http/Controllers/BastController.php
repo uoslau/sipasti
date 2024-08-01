@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use ZipArchive;
 use Carbon\Carbon;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use App\Helpers\NumberToWords;
 use App\Models\PetugasKegiatan;
@@ -11,9 +12,15 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class BastController extends Controller
 {
-    public function generateAllBAST($kegiatanId)
+    public function generateAllBAST($slug)
     {
-        $petugasList = PetugasKegiatan::where('kegiatan_id', $kegiatanId)->get();
+        $kegiatan = Kegiatan::where('slug', $slug)->with('petugasKegiatan')->first();
+
+        if (!$kegiatan) {
+            return response()->json(['error' => 'Kegiatan tidak ditemukan.'], 404);
+        }
+
+        $petugasList = $kegiatan->petugasKegiatan;
 
         if ($petugasList->isEmpty()) {
             return response()->json(['error' => 'Belum ada petugas pada kegiatan.'], 404);
@@ -34,29 +41,29 @@ class BastController extends Controller
         }
 
         $wordFiles = [];
-
         foreach ($petugasList as $petugas) {
             $templateProcessor = new TemplateProcessor($templatePath);
 
-            // $currentDate = Carbon::now();
-            // $hari = NumberToWords::dayName($currentDate->format('l'));
-            // $tanggal = $currentDate->format('d');
-            // $tanggalTerbilang = NumberToWords::toWords($tanggal);
-            // $bulan = NumberToWords::monthName($currentDate->format('m'));
-            // $tahun = $currentDate->format('Y');
-            // $tahunTerbilang = NumberToWords::toWords($tahun);
+            $kontrakDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
+            $kontrakDate = ($kontrakDate->isSaturday() || $kontrakDate->isSunday()) ? $kontrakDate->previousWeekday() : $kontrakDate->copy()->startOfMonth();
+            $tanggal_kontrak = $kontrakDate->format('d');
+            $bulan_kontrak = NumberToWords::monthName($kontrakDate->format('m'));
+            $tahun_kontrak = $kontrakDate->format('Y');
 
             $kegiatanDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
             $tanggal_kegiatan = $kegiatanDate->format('d');
             $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
             $tahun_kegiatan = $kegiatanDate->format('Y');
 
-            $bastDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_selesai);
-            $hari_bast = NumberToWords::dayName($bastDate->format('l'));
-            $tanggal_bast = $bastDate->format('d');
+            $kegiatanEndDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_selesai);
+            if ($kegiatanEndDate->isSaturday() || $kegiatanEndDate->isSunday()) {
+                $kegiatanEndDate = $kegiatanEndDate->nextWeekday();
+            }
+            $hari_bast = NumberToWords::dayName($kegiatanEndDate->format('l'));
+            $tanggal_bast = $kegiatanEndDate->format('d');
             $tanggal_bast_terbilang = NumberToWords::toWords($tanggal_bast);
-            $bulan_bast = NumberToWords::monthName($bastDate->format('m'));
-            $tahun_bast = $bastDate->format('Y');
+            $bulan_bast = NumberToWords::monthName($kegiatanEndDate->format('m'));
+            $tahun_bast = $kegiatanEndDate->format('Y');
             $tahun_bast_terbilang = NumberToWords::toWords($tahun_bast);
 
             $data = [
@@ -72,6 +79,9 @@ class BastController extends Controller
                 'bulan_kegiatan'            => $bulan_kegiatan,
                 'tanggal_kegiatan'          => $tanggal_kegiatan,
                 'nomor_kontrak'             => $petugas->nomor_kontrak,
+                'tanggal_kontrak'           => $tanggal_kontrak,
+                'bulan_kontrak'             => $bulan_kontrak,
+                'tahun_kontrak'             => $tahun_kontrak,
                 'nama_kegiatan'             => $petugas->kegiatan->nama_kegiatan,
                 'beban'                     => $petugas->beban,
                 'satuan'                    => $petugas->satuan,

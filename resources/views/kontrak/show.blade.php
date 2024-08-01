@@ -1,4 +1,3 @@
-{{-- @dd($petugas) --}}
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
@@ -10,7 +9,7 @@
                     <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                         <h6>{{ $title }}</h6>
                         {{-- searching --}}
-                        <form action="/kontrak">
+                        {{-- <form action="/kontrak">
                             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                                 <div class="input-group">
                                     <span class="input-group-text text-body"><i class="fas fa-search"
@@ -18,7 +17,7 @@
                                     <input type="text" class="form-control" placeholder="Search.." name="search">
                                 </div>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">

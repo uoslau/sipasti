@@ -27,8 +27,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- SLUG --}}
-                                <input type="hidden" id="slug" name="slug">
                             </div>
                             <div class="row">
                                 {{-- TANGGAL MULAI --}}
@@ -202,29 +200,5 @@
     {{-- <x-footer></x-footer> --}}
 
     </div>
-
-    <script>
-        const nama_kegiatan = document.querySelector("#nama_kegiatan");
-        const slug = document.querySelector("#slug");
-
-        nama_kegiatan.addEventListener("input", function() {
-            let preslug = nama_kegiatan.value;
-            preslug = preslug.replace(/ /g, "-");
-            slug.value = preslug.toLowerCase();
-        });
-
-        function setDefaultDate(input) {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            input.value = `${year}-${month}-${day}`;
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            setDefaultDate(tanggal_mulai);
-            setDefaultDate(tanggal_selesai);
-        });
-    </script>
 
 </x-layout>

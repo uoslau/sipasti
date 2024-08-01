@@ -7,6 +7,8 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KontrakOBController;
+use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\PetugasKegiatanController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -17,7 +19,7 @@ Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/kegiatan', KegiatanController::class)->except('show')->middleware('auth');
 Route::get('/kegiatan/{kegiatan:slug}', [KegiatanController::class, 'show'])->middleware('auth');
-Route::get('/kegiatan/download-all/{kegiatan_id}', [BastController::class, 'generateAllBAST'])->middleware('auth');
+Route::get('/kegiatan/download-all/{slug}', [BastController::class, 'generateAllBAST'])->middleware('auth');
 
 Route::get('/penugasan', [PetugasKegiatanController::class, 'index'])->middleware('auth');
 Route::post('/petugas-import', [PetugasKegiatanController::class, 'import'])->name('petugas-import')->middleware('auth');
