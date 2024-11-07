@@ -44,10 +44,6 @@ class PetugasImport implements ToCollection
         $indexKe = 1;
         foreach ($collection as $row) {
             if ($indexKe > 1) {
-                // if (empty($row[0])) {
-                //     break;
-                // }
-
                 $sktnp = !empty($row[1]) ? $row[1] : '';
                 $mitra = Mitra::where('sktnp', $sktnp)->first();
 

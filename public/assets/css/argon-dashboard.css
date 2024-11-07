@@ -21514,6 +21514,15 @@ fieldset:disabled .btn {
     transform: skewX(10deg);
 }
 
+.fixed-width-badge {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .fixed-plugin .fixed-plugin-button {
     background: #fff;
     border-radius: 50%;

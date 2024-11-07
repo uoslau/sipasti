@@ -183,7 +183,7 @@
 
                                             <div class="d-flex px-2 py-1 align-items-center">
                                                 <div class="icon icon-shape icon-sm me-3 bg-primary shadow text-center">
-                                                    <i class="ni ni-bold-right text-light opacity-10"></i>
+                                                    <i class="ni ni-calendar-grid-58 text-light opacity-10"></i>
                                                 </div>
                                                 <div>
                                                     <a href="/kontrak/{{ $k['slug'] }}">

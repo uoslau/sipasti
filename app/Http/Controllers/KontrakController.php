@@ -43,6 +43,7 @@ class KontrakController extends Controller
         Carbon::setLocale('id');
 
         $dateString = str_replace('-', ' ', $slug);
+        $bulanTahun = $dateString;
 
         $months = [
             'januari' => 'January',
@@ -90,7 +91,8 @@ class KontrakController extends Controller
         })->sortBy('nama_mitra')->values();
 
         return view('kontrak.show', [
-            'title' => 'Mitra Bulanan',
+            'title' => 'Mitra Bulan',
+            'date' => ucwords($bulanTahun),
             'petugas' => $totalHonorPerPetugas,
         ]);
     }
@@ -124,24 +126,27 @@ class KontrakController extends Controller
         }
 
         $date = Carbon::createFromFormat('F Y', $dateString);
-        $kegiatanList = PetugasKegiatan::whereMonth('tanggal_mulai', $date->month)
+        $petugasList = PetugasKegiatan::whereMonth('tanggal_mulai', $date->month)
             ->whereYear('tanggal_mulai', $date->year)
             ->get();
 
-        if ($kegiatanList->isEmpty()) {
+        if ($petugasList->isEmpty()) {
             return response()->json(['error' => 'Belum ada kegiatan pada bulan tersebut.'], 404);
         }
 
         $petugasKegiatan = [];
-        foreach ($kegiatanList as $kegiatan) {
-            $petugasId = $kegiatan->sktnp;
+        foreach ($petugasList as $petugas) {
+            if ($petugas->satuan === 'O-B') {
+                continue;
+            }
+            $petugasId = $petugas->sktnp;
             if (!isset($petugasKegiatan[$petugasId])) {
                 $petugasKegiatan[$petugasId] = [
-                    'petugas' => $kegiatan->nama_mitra,
+                    'petugas' => $petugas->nama_mitra,
                     'kegiatan' => []
                 ];
             }
-            $petugasKegiatan[$petugasId]['kegiatan'][] = $kegiatan;
+            $petugasKegiatan[$petugasId]['kegiatan'][] = $petugas;
         }
 
         $templatePath = storage_path('app/public/template/template_kontrak.docx');
@@ -162,34 +167,33 @@ class KontrakController extends Controller
         foreach ($petugasKegiatan as $p) {
             $templateProcessor = new TemplateProcessor($templatePath);
 
-            $currentDate = Carbon::createFromFormat('Y-m-d', $kegiatanList[0]->tanggal_mulai);
-
-            $kontrakDate = ($currentDate->isSaturday() || $currentDate->isSunday()) ? $currentDate->previous(Carbon::FRIDAY) : $currentDate->copy()->startOfMonth();
+            $currentDate = Carbon::createFromFormat('Y-m-d', $petugasList[0]->tanggal_mulai);
+            $kontrakDate = ($currentDate->isSaturday() || $currentDate->isSunday()) ? $currentDate->previousWeekday() : $currentDate->copy()->startOfMonth();
             $tanggal = $kontrakDate->format('d');
             $bulan = NumberToWords::monthName($kontrakDate->format('m'));
             $tahun = $kontrakDate->format('Y');
             $hari = NumberToWords::dayName($kontrakDate->format('l'));
 
-            $kegiatanDate = Carbon::createFromFormat('Y-m-d', $kegiatanList[0]->tanggal_mulai);
+            $kegiatanDate = Carbon::createFromFormat('Y-m-d', $petugasList[0]->tanggal_mulai);
             $tanggal_kegiatan = $kegiatanDate->format('d');
             $bulan_kegiatan = NumberToWords::monthName($kegiatanDate->format('m'));
             $tahun_kegiatan = $kegiatanDate->format('Y');
 
-            $kegiatanList = $p['kegiatan'];
-            $total_honor = array_sum(array_column($kegiatanList, 'honor'));
+            $petugasList = $p['kegiatan'];
+            $total_honor = array_sum(array_column($petugasList, 'honor'));
             $total_honor_terbilang = NumberToWords::toWords($total_honor);
 
             $data = [
                 'bulan_kegiatan_kapital'    => strtoupper($bulan_kegiatan),
                 'tahun_kegiatan'            => $tahun_kegiatan,
-                'nomor_kontrak'             => $kegiatanList[0]->nomor_kontrak,
+                'nomor_kontrak'             => $petugasList[0]->nomor_kontrak,
                 'hari'                      => $hari,
                 'tanggal_terbilang'         => ucfirst(NumberToWords::toWords($tanggal)),
                 'bulan'                     => $bulan,
                 'tahun_terbilang'           => ucfirst(NumberToWords::toWords($tahun)),
                 'nama_mitra'                => ucwords(strtolower($p['petugas'])),
-                'pekerjaan'                 => $kegiatanList[0]->pekerjaan,
-                'alamat'                    => $kegiatanList[0]->alamat,
+                'pekerjaan'                 => $petugasList[0]->pekerjaan,
+                'alamat'                    => $petugasList[0]->alamat,
                 'bulan_kegiatan'            => $bulan_kegiatan,
                 'total_honor'               => number_format($total_honor, 0, ',', '.'),
                 'total_honor_terbilang'     => ucfirst($total_honor_terbilang),
@@ -199,9 +203,8 @@ class KontrakController extends Controller
                 $templateProcessor->setValue($key, $value);
             }
 
-            $templateProcessor->cloneRow('nama_kegiatan', count($kegiatanList));
-            foreach ($kegiatanList as $index => $k) {
-                dd($k);
+            $templateProcessor->cloneRow('nama_kegiatan', count($petugasList));
+            foreach ($petugasList as $index => $k) {
                 $rowIndex = $index + 1;
                 $templateProcessor->setValue("no#$rowIndex", $rowIndex);
                 $templateProcessor->setValue("nama_kegiatan#$rowIndex", $k->kegiatan->nama_kegiatan);

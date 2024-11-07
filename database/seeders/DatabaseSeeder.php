@@ -22,6 +22,12 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('ipds1201'),
             'is_admin'  => 1
         ]);
+        User::create([
+            'name'      => 'BPS Nias',
+            'username'  => 'bps1201',
+            'password'  => bcrypt('bps1201'),
+            'is_admin'  => 1
+        ]);
 
         MataAnggaran::create(['mata_anggaran' => '2898.BMA.007.005.A.521213']);
         MataAnggaran::create(['mata_anggaran' => '2899.BMA.006.005.A.521213']);

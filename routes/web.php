@@ -7,7 +7,6 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KontrakOBController;
 use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\PetugasKegiatanController;
 

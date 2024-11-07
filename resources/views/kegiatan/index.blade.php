@@ -61,7 +61,6 @@
                                     <tbody>
                                         @foreach ($kegiatan as $k)
                                             <tr>
-                                                {{-- NAMA KEGIATAN --}}
                                                 <td
                                                     style="max-width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                                     <div
@@ -74,7 +73,6 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                {{-- TOTAL HONOR --}}
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div class="my-auto">
@@ -84,31 +82,21 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                {{-- FUNGSI --}}
                                                 <td class="align-middle text-center">
                                                     <span class="text-xs font-weight-bold">
                                                         {{ $k->fungsi->fungsi ?? 'NA' }}
                                                     </span>
                                                 </td>
-                                                {{-- TANGGAL MULAI --}}
                                                 <td class="align-middle text-center">
                                                     <span class="badge badge-sm bg-success">
                                                         {{ $k->tanggal_mulai }}
                                                     </span>
                                                 </td>
-                                                {{-- TANGGAL SELESAI --}}
                                                 <td class="align-middle text-center">
                                                     <span class="badge badge-sm bg-success">
                                                         {{ $k->tanggal_selesai }}
                                                     </span>
                                                 </td>
-                                                {{-- MATA ANGGARAN --}}
-                                                {{-- <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">
-                                                    {{ $k->mataAnggaran->mata_anggaran ?? 'NA' }}
-                                                </span>
-                                            </td> --}}
-                                                {{-- TITIK 3 --}}
                                                 <td class="align-middle">
                                                     <a href="/kegiatan/download-all/{{ $k->slug }}"
                                                         class="text-secondary font-weight-bold text-xs"

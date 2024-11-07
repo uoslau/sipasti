@@ -6,21 +6,19 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                        <h6>{{ $title }}</h6>
-                        {{-- searching --}}
-                        {{-- <form action="/kontrak">
-                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                                <div class="input-group">
-                                    <span class="input-group-text text-body"><i class="fas fa-search"
-                                            aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" placeholder="Search.." name="search">
-                                </div>
-                            </div>
-                        </form> --}}
-                    </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
+                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                                <h6>{{ $title }} {{ $date }}</h6>
+                                {{-- Form Filter --}}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="filter-nama" class="form-control"
+                                            placeholder="Cari Nama">
+                                    </div>
+                                </div>
+                            </div>
+
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
@@ -32,7 +30,7 @@
                                             Wilayah Tugas</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Honor</th>
+                                            Honor Bulan Ini</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Sisa Bulan Ini</th>
@@ -67,15 +65,15 @@
 
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-primary">Rp
+                                                <span class="badge badge-sm bg-primary fixed-width-badge">Rp
                                                     {{ number_format($p['total_honor'], 0, '.', '.') }}</span>
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-danger">Rp
+                                                <span class="badge badge-sm bg-danger fixed-width-badge">Rp
                                                     {{ number_format($p['honor_max'] - $p['total_honor'], 0, '.', '.') }}</span>
                                             </td>
                                             <td class="align-middle text-center text-md">
-                                                <span class="badge badge-sm bg-success">
+                                                <span class="badge badge-sm bg-success fixed-width-badge">
                                                     @if ($p['total_honor'] > $p['honor_max'])
                                                         Rp {{ number_format($p['honor_max'], 0, '.', ',') }}
                                                     @else
@@ -83,11 +81,6 @@
                                                     @endif
                                                 </span>
                                             </td>
-                                            {{-- <td class="align-middle">
-                                                <a href="#" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user"> Print
-                                                </a>
-                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -105,3 +98,28 @@
         <x-footer></x-footer>
     </div>
 </x-layout>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterNama = document.getElementById('filter-nama');
+        const tableBody = document.querySelector('tbody');
+
+        function applyFilter() {
+            const namaValue = filterNama.value.toLowerCase();
+
+            const rows = tableBody.querySelectorAll('tr');
+            rows.forEach(row => {
+                const nama = row.querySelector('td:nth-child(1) h6').innerText.toLowerCase();
+
+                const matchNama = nama.includes(namaValue);
+
+                if (matchNama) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        filterNama.addEventListener('input', applyFilter);
+    });
+</script>

@@ -45,6 +45,7 @@ class BastController extends Controller
             $templateProcessor = new TemplateProcessor($templatePath);
 
             $kontrakDate = Carbon::createFromFormat('Y-m-d', $petugas->kegiatan->tanggal_mulai);
+            $kontrakDate = $kontrakDate->copy()->startOfMonth();
             $kontrakDate = ($kontrakDate->isSaturday() || $kontrakDate->isSunday()) ? $kontrakDate->previousWeekday() : $kontrakDate->copy()->startOfMonth();
             $tanggal_kontrak = $kontrakDate->format('d');
             $bulan_kontrak = NumberToWords::monthName($kontrakDate->format('m'));
